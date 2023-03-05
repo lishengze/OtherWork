@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{85452B53-591E-45F8-BC0C-97B051AA0428}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DB</RootNamespace>
+    <AssemblyName>DB</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\DB.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\DB.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BLL\绩效考核_未上市股票信息表.cs" />
+    <Compile Include="BLL\绩效考核_用户信息表.cs" />
+    <Compile Include="BLL\绩效考核_汇率.cs" />
+    <Compile Include="BLL\绩效考核_申购赎回调整历史表.cs" />
+    <Compile Include="BLL\绩效考核_基金份额历史表.cs" />
+    <Compile Include="BLL\绩效考核_现金替代物信息表.cs" />
+    <Compile Include="BLL\绩效考核_期货每日交易汇总大表.cs" />
+    <Compile Include="BLL\绩效考核_基金产品信息表.cs" />
+    <Compile Include="BLL\绩效考核_基金产品每日统计.cs" />
+    <Compile Include="BLL\绩效考核_基金经理信息表.cs" />
+    <Compile Include="BLL\绩效考核_基金经理净值贡献表.cs" />
+    <Compile Include="BLL\绩效考核_股票信息表.cs" />
+    <Compile Include="BLL\绩效考核_股票每日交易汇总大表.cs" />
+    <Compile Include="BLL\绩效考核_股票每日交易汇总小表.cs" />
+    <Compile Include="Common\CommandInfo.cs" />
+    <Compile Include="Common\DbHelperSQL.cs" />
+    <Compile Include="DAL\绩效考核_未上市股票信息表.cs" />
+    <Compile Include="DAL\绩效考核_用户信息表.cs" />
+    <Compile Include="DAL\绩效考核_汇率.cs" />
+    <Compile Include="DAL\绩效考核_申购赎回调整历史表.cs" />
+    <Compile Include="DAL\绩效考核_基金份额历史表.cs" />
+    <Compile Include="DAL\绩效考核_现金替代物信息表.cs" />
+    <Compile Include="DAL\绩效考核_期货每日交易汇总大表.cs" />
+    <Compile Include="DAL\绩效考核_基金产品信息表.cs" />
+    <Compile Include="DAL\绩效考核_基金产品每日统计.cs" />
+    <Compile Include="DAL\绩效考核_基金经理信息表.cs" />
+    <Compile Include="DAL\绩效考核_基金经理净值贡献表.cs" />
+    <Compile Include="DAL\绩效考核_股票信息表.cs" />
+    <Compile Include="DAL\绩效考核_股票每日交易汇总大表.cs" />
+    <Compile Include="DAL\绩效考核_股票每日交易汇总小表.cs" />
+    <Compile Include="DataConvertor.cs" />
+    <Compile Include="DAL\Model\绩效考核_未上市股票信息表.cs" />
+    <Compile Include="DAL\Model\绩效考核_用户信息表.cs" />
+    <Compile Include="DAL\Model\绩效考核_汇率.cs" />
+    <Compile Include="DAL\Model\绩效考核_申购赎回调整历史表.cs" />
+    <Compile Include="DAL\Model\绩效考核_基金份额历史表.cs" />
+    <Compile Include="DAL\Model\绩效考核_现金替代物信息表.cs" />
+    <Compile Include="DAL\Model\绩效考核_期货每日交易汇总大表.cs" />
+    <Compile Include="DAL\Model\绩效考核_基金产品信息表.cs" />
+    <Compile Include="DAL\Model\绩效考核_基金产品每日统计.cs" />
+    <Compile Include="DAL\Model\绩效考核_基金经理信息表.cs" />
+    <Compile Include="DAL\Model\绩效考核_基金经理净值贡献表.cs" />
+    <Compile Include="DAL\Model\绩效考核_股票信息表.cs" />
+    <Compile Include="DAL\Model\绩效考核_股票每日交易汇总大表.cs" />
+    <Compile Include="DAL\Model\绩效考核_股票每日交易汇总小表.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="临时缓存区_用于对比\BLL\绩效考核_基金产品每日统计.cs" />
+    <Compile Include="临时缓存区_用于对比\BLL\绩效考核_基金经理净值贡献表.cs" />
+    <Compile Include="临时缓存区_用于对比\BLL\绩效考核_股票每日交易汇总大表.cs" />
+    <Compile Include="临时缓存区_用于对比\DAL\绩效考核_基金产品每日统计.cs" />
+    <Compile Include="临时缓存区_用于对比\DAL\绩效考核_基金经理净值贡献表.cs" />
+    <Compile Include="临时缓存区_用于对比\DAL\绩效考核_股票每日交易汇总大表.cs" />
+    <Compile Include="格式不符\BLL\绩效考核_基金产品每日统计.cs" />
+    <Compile Include="格式不符\BLL\绩效考核_股票每日交易汇总大表.cs" />
+    <Compile Include="格式不符\BLL\绩效考核_股票每日交易汇总小表.cs" />
+    <Compile Include="格式不符\DAL\绩效考核_基金产品每日统计.cs" />
+    <Compile Include="格式不符\DAL\绩效考核_股票每日交易汇总大表.cs" />
+    <Compile Include="格式不符\DAL\绩效考核_股票每日交易汇总小表.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

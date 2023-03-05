@@ -1,0 +1,592 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D84543D8-9947-4EAC-A779-BF54E4D41A3B}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>基金管理</RootNamespace>
+    <AssemblyName>基金管理</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\基金管理.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\基金管理.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\基金管理.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\基金管理.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Office, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="Control\ComCheckBoxList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\ComCheckBoxList.Designer.cs">
+      <DependentUpon>ComCheckBoxList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\DeleteDataFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Control\DeleteDataFrm.Designer.cs">
+      <DependentUpon>DeleteDataFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Edit_ShuHui_Frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Control\Edit_ShuHui_Frm.Designer.cs">
+      <DependentUpon>Edit_ShuHui_Frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\基准日净值_Frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Control\基准日净值_Frm.Designer.cs">
+      <DependentUpon>基准日净值_Frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\确认上个交易日日期frm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Control\确认上个交易日日期frm.Designer.cs">
+      <DependentUpon>确认上个交易日日期frm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\ManagerCtl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\ManagerCtl.designer.cs">
+      <DependentUpon>ManagerCtl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Stat仓位_Control.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\Stat仓位_Control.Designer.cs">
+      <DependentUpon>Stat仓位_Control.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Stat仓位_Control_Sub.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\Stat仓位_Control_Sub.Designer.cs">
+      <DependentUpon>Stat仓位_Control_Sub.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\SystemManagerCtl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\SystemManagerCtl.designer.cs">
+      <DependentUpon>SystemManagerCtl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Edit_Password.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Control\Edit_Password.Designer.cs">
+      <DependentUpon>Edit_Password.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExcelHelper.cs" />
+    <Compile Include="Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LogOperator.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Utility\SerializerHelper.cs" />
+    <Compile Include="Utility\User.cs" />
+    <Compile Include="ExcelReader.cs" />
+    <Compile Include="大表\CurrentDayExchangeHZCtl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="大表\CurrentDayExchangeHZCtl.Designer.cs">
+      <DependentUpon>CurrentDayExchangeHZCtl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="大表\CurrentDayExchangeListCtl_大表数据审查.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="大表\CurrentDayExchangeListCtl_大表数据审查.Designer.cs">
+      <DependentUpon>CurrentDayExchangeListCtl_大表数据审查.cs</DependentUpon>
+    </Compile>
+    <Compile Include="大表\CurrentDayExchangeListCtl_大表未导入.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="大表\CurrentDayExchangeListCtl_大表未导入.Designer.cs">
+      <DependentUpon>CurrentDayExchangeListCtl_大表未导入.cs</DependentUpon>
+    </Compile>
+    <Compile Include="大表\CurrentDayExchangeHZCtl_记录对比.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="大表\CurrentDayExchangeHZCtl_记录对比.designer.cs">
+      <DependentUpon>CurrentDayExchangeHZCtl_记录对比.cs</DependentUpon>
+    </Compile>
+    <Compile Include="大表\select_start_end.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="大表\select_start_end.Designer.cs">
+      <DependentUpon>select_start_end.cs</DependentUpon>
+    </Compile>
+    <Compile Include="大表\大表数据审查_修改.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="大表\大表数据审查_修改.Designer.cs">
+      <DependentUpon>大表数据审查_修改.cs</DependentUpon>
+    </Compile>
+    <Compile Include="大表\编辑大表_Info.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="大表\编辑大表_Info.Designer.cs">
+      <DependentUpon>编辑大表_Info.cs</DependentUpon>
+    </Compile>
+    <Compile Include="大表\select_jyr.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="大表\select_jyr.Designer.cs">
+      <DependentUpon>select_jyr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="大表\Input_汇率.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="大表\Input_汇率.Designer.cs">
+      <DependentUpon>Input_汇率.cs</DependentUpon>
+    </Compile>
+    <Compile Include="小表\CurrentDayExchangeListCtl_小表未导入.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="小表\CurrentDayExchangeListCtl_小表未导入.Designer.cs">
+      <DependentUpon>CurrentDayExchangeListCtl_小表未导入.cs</DependentUpon>
+    </Compile>
+    <Compile Include="小表\Edit_Info.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="小表\Edit_Info.Designer.cs">
+      <DependentUpon>Edit_Info.cs</DependentUpon>
+    </Compile>
+    <Compile Include="小表\Input_ProductName.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="小表\Input_ProductName.Designer.cs">
+      <DependentUpon>Input_ProductName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="小表\CurrentDayExchangeListCtl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="小表\CurrentDayExchangeListCtl.Designer.cs">
+      <DependentUpon>CurrentDayExchangeListCtl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="小表\Add_CurrentDayExchangeFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="小表\Add_CurrentDayExchangeFrm.Designer.cs">
+      <DependentUpon>Add_CurrentDayExchangeFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="大表\CurrentDayExchangeHZCtl_SubPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="大表\CurrentDayExchangeHZCtl_SubPanel.Designer.cs">
+      <DependentUpon>CurrentDayExchangeHZCtl_SubPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Stat_Control.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\Stat_Control.Designer.cs">
+      <DependentUpon>Stat_Control.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Stat_Control_ByPerson.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\Stat_Control_ByPerson.Designer.cs">
+      <DependentUpon>Stat_Control_ByPerson.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainFrm.Designer.cs">
+      <DependentUpon>MainFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="大表\Input_year.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="大表\Input_year.Designer.cs">
+      <DependentUpon>Input_year.cs</DependentUpon>
+    </Compile>
+    <Compile Include="小表\CurrentDayExchangeListCtl_小表数据审查.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="小表\CurrentDayExchangeListCtl_小表数据审查.Designer.cs">
+      <DependentUpon>CurrentDayExchangeListCtl_小表数据审查.cs</DependentUpon>
+    </Compile>
+    <Compile Include="小表\小表_导出历史记录.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="小表\小表_导出历史记录.Designer.cs">
+      <DependentUpon>小表_导出历史记录.cs</DependentUpon>
+    </Compile>
+    <Compile Include="小表\小表数据审查_修改.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="小表\小表数据审查_修改.Designer.cs">
+      <DependentUpon>小表数据审查_修改.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Control\DeleteDataFrm.resx">
+      <DependentUpon>DeleteDataFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\Edit_ShuHui_Frm.resx">
+      <DependentUpon>Edit_ShuHui_Frm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\基准日净值_Frm.resx">
+      <DependentUpon>基准日净值_Frm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\确认上个交易日日期frm.resx">
+      <DependentUpon>确认上个交易日日期frm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\ManagerCtl.resx">
+      <DependentUpon>ManagerCtl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\Stat仓位_Control.resx">
+      <DependentUpon>Stat仓位_Control.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\Stat仓位_Control_Sub.resx">
+      <DependentUpon>Stat仓位_Control_Sub.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\SystemManagerCtl.resx">
+      <DependentUpon>SystemManagerCtl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\Edit_Password.resx">
+      <DependentUpon>Edit_Password.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="大表\CurrentDayExchangeHZCtl.resx">
+      <DependentUpon>CurrentDayExchangeHZCtl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="大表\CurrentDayExchangeListCtl_大表数据审查.resx">
+      <DependentUpon>CurrentDayExchangeListCtl_大表数据审查.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="大表\CurrentDayExchangeListCtl_大表未导入.resx">
+      <DependentUpon>CurrentDayExchangeListCtl_大表未导入.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="大表\CurrentDayExchangeHZCtl_记录对比.resx">
+      <DependentUpon>CurrentDayExchangeHZCtl_记录对比.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="大表\select_start_end.resx">
+      <DependentUpon>select_start_end.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="大表\大表数据审查_修改.resx">
+      <DependentUpon>大表数据审查_修改.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="大表\编辑大表_Info.resx">
+      <DependentUpon>编辑大表_Info.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="大表\select_jyr.resx">
+      <DependentUpon>select_jyr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="大表\Input_汇率.resx">
+      <DependentUpon>Input_汇率.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="小表\CurrentDayExchangeListCtl_小表未导入.resx">
+      <DependentUpon>CurrentDayExchangeListCtl_小表未导入.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="小表\Edit_Info.resx">
+      <DependentUpon>Edit_Info.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="小表\Input_ProductName.resx">
+      <DependentUpon>Input_ProductName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="小表\CurrentDayExchangeListCtl.resx">
+      <DependentUpon>CurrentDayExchangeListCtl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="小表\Add_CurrentDayExchangeFrm.resx">
+      <DependentUpon>Add_CurrentDayExchangeFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="大表\CurrentDayExchangeHZCtl_SubPanel.resx">
+      <DependentUpon>CurrentDayExchangeHZCtl_SubPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\Stat_Control.resx">
+      <DependentUpon>Stat_Control.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\Stat_Control_ByPerson.resx">
+      <DependentUpon>Stat_Control_ByPerson.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainFrm.resx">
+      <DependentUpon>MainFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="大表\Input_year.resx">
+      <DependentUpon>Input_year.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="小表\CurrentDayExchangeListCtl_小表数据审查.resx">
+      <DependentUpon>CurrentDayExchangeListCtl_小表数据审查.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="小表\小表_导出历史记录.resx">
+      <DependentUpon>小表_导出历史记录.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="小表\小表数据审查_修改.resx">
+      <DependentUpon>小表数据审查_修改.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Resources\changeStudentCard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Resources\comments.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Resources\detail.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Resources\file.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Resources\folder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Resources\folder_files.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Resources\folder_open.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Resources\import.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Resources\letter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Resources\login.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Resources\markhide.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Resources\maximize.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Resources\minimize.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Resources\print.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Resources\refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Resources\reply.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Resources\rewardToStudentCard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Resources\save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Resources\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Resources\statics.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Resources\studentCard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Resources\studentToClass.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Resources\time.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Resources\user.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Resources\action_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Resources\action_check.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Resources\action_delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Resources\action_remove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Resources\arrow_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Resources\arrow_down.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Resources\arrow_next.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Resources\arrow_top.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Resources\changeClass.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Resources\QQ图片20150622213330.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Resources\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Resources\title.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Resources\Icon1.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DB\DB.csproj">
+      <Project>{85452B53-591E-45F8-BC0C-97B051AA0428}</Project>
+      <Name>DB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WAPIWrapperCSharp\WAPIWrapperCSharp.csproj">
+      <Project>{49CAE149-887A-4597-808A-D40A30C1C83B}</Project>
+      <Name>WAPIWrapperCSharp</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="Utility\Resources\登录页面.PNG" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

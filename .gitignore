@@ -1,0 +1,10 @@
+.vscode/
+vs2017/.vs/
+vs2017/packages/
+build/
+Debug/
+x64/
+bin/
+*.o
+bin_linux/*
+trade_server/bin_linux/*
