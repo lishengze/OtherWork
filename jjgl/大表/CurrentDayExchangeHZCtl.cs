@@ -234,39 +234,42 @@ namespace 基金管理
         }
 
         private void InitAmericanCodeMap() {
-            string curr_date = DateTime.Now.ToString("yyyy-MM-dd");
-
-            string req_str = "date=" + curr_date + ";sectorid=1000022276000000";
-
-            WindData wd = m_WindAPI.wset("sectorconstituent", req_str);
-
-            int code_len = wd.GetCodeLength();
-            int field_len = wd.GetFieldLength();
-
-            m_usa_code_map = new Dictionary<string, HashSet<string>>();
-
-            object[,] data = (object[,])wd.getDataByFunc("wset", false);
-
-
-            for (int i = 0; i < code_len; ++i)
+            for (int j =0;j < 5; ++j) 
             {
-                string full_code = (string)data[i, 1];
+                string curr_date = DateTime.Now.ToString("yyyy-MM-dd");
 
-                string[] tmp_code_list = full_code.Split('.');
+                string req_str = "date=" + curr_date + ";sectorid=1000022276000000";
 
-                string code = tmp_code_list[0].ToUpper();
-                string suffix = tmp_code_list[1].ToUpper();
+                WindData wd = m_WindAPI.wset("sectorconstituent", req_str);
 
-                if (!m_usa_code_map.ContainsKey(suffix))
+                int code_len = wd.GetCodeLength();
+                int field_len = wd.GetFieldLength();
+
+                m_usa_code_map = new Dictionary<string, HashSet<string>>();
+
+                object[,] data = (object[,])wd.getDataByFunc("wset", false);
+
+
+                for (int i = 0; i < code_len; ++i)
                 {
-                    m_usa_code_map.Add(suffix, new HashSet<string>());
+                    string full_code = (string)data[i, 1];
+
+                    string[] tmp_code_list = full_code.Split('.');
+
+                    string code = tmp_code_list[0].ToUpper();
+                    string suffix = tmp_code_list[1].ToUpper();
+
+                    if (!m_usa_code_map.ContainsKey(suffix))
+                    {
+                        m_usa_code_map.Add(suffix, new HashSet<string>());
+                    }
+
+                    m_usa_code_map[suffix].Add(code.ToUpper());
                 }
 
-                m_usa_code_map[suffix].Add(code.ToUpper());
-            }
+                if (m_usa_code_map.Count > 0) break;
 
-            if (m_usa_code_map.Count <= 0) {
-
+                Thread.Sleep(500);
             }
         }
         
