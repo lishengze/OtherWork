@@ -201,6 +201,89 @@ namespace 基金管理
             Current //当前日期的价格
         }
 
+        private bool IsAmericanCode(string code) 
+        {
+            foreach(char c in code)
+            {
+                if (Char.IsNumber(c))
+                {
+                    return false;
+                }
+            }
+
+            string rst = code.ToUpper();
+            foreach (var key in m_usa_code_map.Keys)
+            {
+                if (m_usa_code_map[key].Contains(rst))
+                {
+                    return true;
+                }
+            }  
+
+            return false;
+        }
+
+        static bool IsChineseCode(string code)
+        {
+            return code.Length == 6;
+        }
+
+        static bool IsHKCode(string code)
+        {
+            return code.Length == 4;
+        }
+
+        private void InitAmericanCodeMap() {
+            string curr_date = DateTime.Now.ToString("yyyy-MM-dd");
+
+            string req_str = "date=" + curr_date + ";sectorid=1000022276000000";
+
+            WindData wd = m_WindAPI.wset("sectorconstituent", req_str);
+
+            int code_len = wd.GetCodeLength();
+            int field_len = wd.GetFieldLength();
+
+            m_usa_code_map = new Dictionary<string, HashSet<string>>();
+
+            object[,] data = (object[,])wd.getDataByFunc("wset", false);
+
+
+            for (int i = 0; i < code_len; ++i)
+            {
+                string full_code = (string)data[i, 1];
+
+                string[] tmp_code_list = full_code.Split('.');
+
+                string code = tmp_code_list[0].ToUpper();
+                string suffix = tmp_code_list[1].ToUpper();
+
+                if (!m_usa_code_map.ContainsKey(suffix))
+                {
+                    m_usa_code_map.Add(suffix, new HashSet<string>());
+                }
+
+                m_usa_code_map[suffix].Add(code.ToUpper());
+            }
+
+            if (m_usa_code_map.Count <= 0) {
+
+            }
+        }
+        
+        private string GetAmericanCode(string code)
+        {
+            string rst = code.ToUpper();
+            foreach (var key in m_usa_code_map.Keys)
+            {
+                if (m_usa_code_map[key].Contains(rst))
+                {
+                    rst += "." + key;
+                    break;
+                }
+            }            
+            return rst;
+        }
+
         /// <summary>
         /// 获取当日收盘价
         /// </summary>
@@ -212,20 +295,27 @@ namespace 基金管理
 
             string windCodes = string.Empty;
             string indicators, startTime, endTime, options;
-            if (今日大表Model.股票代码.Length == 6) //股票6位为大陆股票，4位为港股
-            {
 
+            if (IsAmericanCode(今日大表Model.股票代码))
+            {
+                windCodes = GetAmericanCode(今日大表Model.股票代码);
+            }
+            else if (今日大表Model.股票代码.Length == 6) //股票6位为大陆股票，4位为港股
+            {
                 if (今日大表Model.股票代码.Substring(0, 1) == "6" || 今日大表Model.股票代码.Substring(0, 2) == "51")
                     //>6打头,51打头,后缀为SH上交
                     windCodes = 今日大表Model.股票代码 + ".SH";
                 else //其他为sz 深交发行
                     windCodes = 今日大表Model.股票代码 + ".SZ";
-
             }
             else if (今日大表Model.股票代码.Length == 4)
             {
                 windCodes = 今日大表Model.股票代码 + ".HK";
+            } else {
+                MessageBox.Show("无法识别的股票代码: " + 今日大表Model.股票代码);
+                return 0;
             }
+
             indicators = "close";
             startTime = date.Trim() + " 8:00:00";//开盘时间 9点
             endTime = date.Trim() + " 17:00:00"; //收盘时间 16点
@@ -252,7 +342,11 @@ namespace 基金管理
                 {
                     double.TryParse(string.Format("{0}", odata[0, 0]), out 市场现价);
                 }
-                if (今日大表Model.股票代码.Length == 4) //如果为港股，则需要乘以当日汇率
+
+                if (IsAmericanCode(今日大表Model.股票代码)) {
+                    市场现价 *= m_sell_CNY;
+                }
+                else if (今日大表Model.股票代码.Length == 4) //如果为港股，则需要乘以当日汇率
                 {
                     市场现价 = 市场现价 * m_卖出汇率;
                 }
@@ -267,8 +361,14 @@ namespace 基金管理
 
         private WindAPI m_WindAPI = null;
 
+        private Dictionary<string, HashSet<string>> m_usa_code_map;
+
         private double m_买入汇率 = 0;
         private double m_卖出汇率 = 0;
+
+        private double m_buy_CNY = -1;
+
+        private double m_sell_CNY = -1;
 
         private NewOrCurrent m_Eum_NewOrCurrent = NewOrCurrent.New;
         /// <summary>
@@ -276,6 +376,8 @@ namespace 基金管理
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+
+
         public void btn_生成当日投资统计汇总_Click(object sender, EventArgs e)
         {
             m_Eum_NewOrCurrent = NewOrCurrent.Current;
@@ -378,12 +480,13 @@ namespace 基金管理
 
             Maticsoft.BLL.绩效考核_汇率 绩效考核_汇率BLL = new Maticsoft.BLL.绩效考核_汇率();
             Maticsoft.Model.绩效考核_汇率 绩效考核_汇率Model = 绩效考核_汇率BLL.GetModel(currentDayDate);
+            
             m_买入汇率 = 0;
             m_卖出汇率 = 0;
             if (绩效考核_汇率Model == null) //汇率表中不存在该记录；
             {
                 //弹出输入框，允许用户输入汇率
-                Input_汇率 frm = new Input_汇率(currentDayDate);
+                Input_汇率 frm = new Input_汇率(currentDayDate, " HK Stock Market");
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
                     m_买入汇率 = frm.港币人民币买入汇率;
@@ -400,6 +503,29 @@ namespace 基金管理
                 m_买入汇率 = 绩效考核_汇率Model.买入汇率;
                 m_卖出汇率 = 绩效考核_汇率Model.卖出汇率;
                 绩效考核_汇率BLL.Update(new Maticsoft.Model.绩效考核_汇率(currentDayDate, m_买入汇率, m_卖出汇率));
+            }
+
+            string amax_exchange_rate_key = currentDayDate + "_USA";
+            Maticsoft.Model.绩效考核_汇率 amax_rate_model = 绩效考核_汇率BLL.GetModel(amax_exchange_rate_key);
+            if (amax_rate_model == null) {
+                //弹出输入框，允许用户输入汇率
+                Input_汇率 frm = new Input_汇率(currentDayDate, " American Stock Market");
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+                    m_buy_CNY = frm.BuyCny;
+                    m_sell_CNY = frm.SellCny;
+                    绩效考核_汇率BLL.Add(new Maticsoft.Model.绩效考核_汇率(amax_exchange_rate_key, m_buy_CNY, m_sell_CNY));
+                }
+                else
+                { //不选择年份，结束导入动作 
+                    return;
+                }                
+            }
+            else
+            {
+                m_buy_CNY = amax_rate_model.买入汇率;
+                m_sell_CNY = amax_rate_model.卖出汇率;
+                绩效考核_汇率BLL.Update(new Maticsoft.Model.绩效考核_汇率(amax_exchange_rate_key, m_buy_CNY, m_sell_CNY));                
             }
             #endregion
 
@@ -526,6 +652,10 @@ namespace 基金管理
                 {
                     return;
                 }
+            } 
+            else
+            {
+                InitAmericanCodeMap();
             }
             #endregion
 

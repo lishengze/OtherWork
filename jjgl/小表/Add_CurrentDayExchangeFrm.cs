@@ -65,6 +65,17 @@ namespace 基金管理
             }
         }
 
+        static bool IsAmericanCode(string code) 
+        {
+            foreach(char c in code)
+            {
+                if (Char.IsNumber(c))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
 
         private void btn_增加记录_Click(object sender, EventArgs e)
         {
@@ -79,7 +90,7 @@ namespace 基金管理
             if (绩效考核_汇率Model == null) //汇率表中不存在该记录；
             {
                 //弹出输入框，允许用户输入汇率
-                Input_汇率 frm = new Input_汇率(currentDayDate);
+                Input_汇率 frm = new Input_汇率(currentDayDate, " HK Stock Market");
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
                     m_买入汇率 = frm.港币人民币买入汇率;
@@ -97,7 +108,34 @@ namespace 基金管理
                 m_卖出汇率 = 绩效考核_汇率Model.卖出汇率;
                 绩效考核_汇率BLL.Update(new Maticsoft.Model.绩效考核_汇率(currentDayDate, m_买入汇率, m_卖出汇率));
             }
+
+            double m_buy_CNY = 0;
+            double m_sell_CNY = 0;
+            string amax_exchange_rate_key = currentDayDate + "_USA";
+            Maticsoft.Model.绩效考核_汇率 amax_rate_model = 绩效考核_汇率BLL.GetModel(amax_exchange_rate_key);
+            if (amax_rate_model == null) {
+                //弹出输入框，允许用户输入汇率
+                Input_汇率 frm = new Input_汇率(currentDayDate, " American Stock Market");
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+                    m_buy_CNY = frm.BuyCny;
+                    m_sell_CNY = frm.SellCny;
+                    绩效考核_汇率BLL.Add(new Maticsoft.Model.绩效考核_汇率(amax_exchange_rate_key, m_buy_CNY, m_sell_CNY));
+                }
+                else
+                { //不选择年份，结束导入动作 
+                    return;
+                }                
+            }
+            else
+            {
+                m_buy_CNY = amax_rate_model.买入汇率;
+                m_sell_CNY = amax_rate_model.卖出汇率;
+                绩效考核_汇率BLL.Update(new Maticsoft.Model.绩效考核_汇率(amax_exchange_rate_key, m_buy_CNY, m_sell_CNY));                
+            }
             #endregion
+
+
 
             Maticsoft.BLL.绩效考核_股票每日交易汇总小表 modelBLL = new Maticsoft.BLL.绩效考核_股票每日交易汇总小表();
             Maticsoft.Model.绩效考核_股票每日交易汇总小表 model = new Maticsoft.Model.绩效考核_股票每日交易汇总小表();
@@ -130,7 +168,12 @@ namespace 基金管理
             //model.卖出均价 = 卖出均价;
             model.今日卖出股 = 今日卖出股;
 
-            if (model.股票代码.Length == 4) //港股，需要乘以汇率 
+            if (IsAmericanCode(model.股票代码)) 
+            {
+                model.买入均价 = 买入均价 * m_buy_CNY;
+                model.卖出均价 = 卖出均价 * m_sell_CNY;
+            }
+            else if (model.股票代码.Length == 4) //港股，需要乘以汇率 
             {
                 model.买入均价 = 买入均价 * m_买入汇率;
                 model.卖出均价 = 卖出均价 * m_卖出汇率;
@@ -140,6 +183,7 @@ namespace 基金管理
                 model.买入均价 = 买入均价;
                 model.卖出均价 = 卖出均价;
             }
+
             if (model.今日买入股 <= 0 || model.买入均价 <= 0) //只要有一个小于0，则两个值都为0；
             {
                 model.今日买入股 = 0;
