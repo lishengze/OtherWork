@@ -227,6 +227,12 @@
     <Compile Include="大表\select_start_end.Designer.cs">
       <DependentUpon>select_start_end.cs</DependentUpon>
     </Compile>
+    <Compile Include="大表\Input_美元汇率.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="大表\Input_美元汇率.Designer.cs">
+      <DependentUpon>Input_美元汇率.cs</DependentUpon>
+    </Compile>
     <Compile Include="大表\大表数据审查_修改.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -375,6 +381,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="大表\select_start_end.resx">
       <DependentUpon>select_start_end.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="大表\Input_美元汇率.resx">
+      <DependentUpon>Input_美元汇率.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="大表\大表数据审查_修改.resx">
       <DependentUpon>大表数据审查_修改.cs</DependentUpon>

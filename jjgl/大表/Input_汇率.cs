@@ -38,19 +38,6 @@ namespace 基金管理
             get { return _港币人民币卖出汇率; }
         }
 
-        private double m_buy_cny;
-        public double BuyCny
-        {
-            get { return m_buy_cny; }
-        }
-
-        private double m_sell_cny;
-        public double SellCny
-        {
-            get { return m_sell_cny; }
-        }
-
-
         private void btn_确定_Click(object sender, EventArgs e)
         {
             double 买入汇率 = 0;
@@ -69,27 +56,6 @@ namespace 基金管理
             }
             this._港币人民币买入汇率 = 买入汇率;
             this._港币人民币卖出汇率 = 卖出汇率;
-            this.DialogResult = System.Windows.Forms.DialogResult.OK;
-        }
-
-        private void button_set_cny_Click(object sender, EventArgs e)
-        {
-            double buy_cny = -1;
-            double sell_cny = -1;
-            double.TryParse(this.text_buy_cny.Text.Trim(), out buy_cny);
-            double.TryParse(this.text_sell_cny.Text.Trim(), out sell_cny);
-            if (buy_cny <= 0)
-            {
-                MessageBox.Show("提交失败，美股买入汇率有效范围为必须大于0", "系统提示");
-                return;
-            }
-            if (sell_cny <= 0)
-            {
-                MessageBox.Show("提交失败，美股卖出汇率有效范围为必须大于0", "系统提示");
-                return;
-            }
-            this.m_buy_cny = buy_cny;
-            this.m_sell_cny = sell_cny;
             this.DialogResult = System.Windows.Forms.DialogResult.OK;
         }
     }

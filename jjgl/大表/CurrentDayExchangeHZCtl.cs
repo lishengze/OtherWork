@@ -512,7 +512,7 @@ namespace 基金管理
             Maticsoft.Model.绩效考核_汇率 amax_rate_model = 绩效考核_汇率BLL.GetModel(amax_exchange_rate_key);
             if (amax_rate_model == null) {
                 //弹出输入框，允许用户输入汇率
-                Input_汇率 frm = new Input_汇率(currentDayDate, " American Stock Market");
+                Input_美元汇率 frm = new Input_美元汇率(currentDayDate, " American Stock Market");
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
                     m_buy_CNY = frm.BuyCny;
