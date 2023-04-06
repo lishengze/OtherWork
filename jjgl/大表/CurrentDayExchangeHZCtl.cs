@@ -203,22 +203,26 @@ namespace 基金管理
 
         private bool IsAmericanCode(string code) 
         {
-            foreach(char c in code)
-            {
-                if (Char.IsNumber(c))
-                {
-                    return false;
-                }
-            }
+            // foreach(char c in code)
+            // {
+            //     if (Char.IsNumber(c))
+            //     {
+            //         return false;
+            //     }
+            // }
 
-            string rst = code.ToUpper();
-            foreach (var key in m_usa_code_map.Keys)
-            {
-                if (m_usa_code_map[key].Contains(rst))
-                {
-                    return true;
-                }
-            }  
+            // string rst = code.ToUpper();
+            // foreach (var key in m_usa_code_map.Keys)
+            // {
+            //     if (m_usa_code_map[key].Contains(rst))
+            //     {
+            //         return true;
+            //     }
+            // }  
+
+            if (m_usa_code_info_map.ContainsKey(code)) {
+                return true; 
+            }
 
             return false;
         }
@@ -254,6 +258,8 @@ namespace 基金管理
                 {
                     string full_code = (string)data[i, 1];
 
+                    string code_description =  (string)data[i, 2];
+
                     string[] tmp_code_list = full_code.Split('.');
 
                     string code = tmp_code_list[0].ToUpper();
@@ -265,9 +271,13 @@ namespace 基金管理
                     }
 
                     m_usa_code_map[suffix].Add(code.ToUpper());
+
+                    if (!m_usa_code_info_map.ContainsKey(full_code)) {
+                        m_usa_code_info_map.Add(full_code, code_description);
+                    }
                 }
 
-                if (m_usa_code_map.Count > 0) break;
+                if (m_usa_code_map.Count > 0 ||m_usa_code_info_map.Count >0) break;
 
                 Thread.Sleep(500);
             }
@@ -301,7 +311,7 @@ namespace 基金管理
 
             if (IsAmericanCode(今日大表Model.股票代码))
             {
-                windCodes = GetAmericanCode(今日大表Model.股票代码);
+                // windCodes = GetAmericanCode(今日大表Model.股票代码);
             }
             else if (今日大表Model.股票代码.Length == 6) //股票6位为大陆股票，4位为港股
             {
@@ -365,6 +375,8 @@ namespace 基金管理
         private WindAPI m_WindAPI = null;
 
         private Dictionary<string, HashSet<string>> m_usa_code_map;
+
+        private Dictionary<string, string> m_usa_code_info_map;
 
         private double m_买入汇率 = 0;
         private double m_卖出汇率 = 0;
