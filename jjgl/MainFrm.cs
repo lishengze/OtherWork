@@ -116,6 +116,8 @@ namespace 基金管理
                 this.page_大表数据审查.Controls.Add(大表数据审查_Ctl);
                 大表数据审查_Ctl.Dock = DockStyle.Fill;
             }
+
+            WindMain.Instance.Run();
         }
 
         void MainFrm_FormClosed(object sender, FormClosedEventArgs e)
@@ -141,14 +143,14 @@ namespace 基金管理
 
             foreach (Maticsoft.Model.绩效考核_股票信息表 model in modelList)
             {
-                if (model.股票代码.Length == 6 || model.股票代码.Length == 4)
+                if (model.股票代码 == "" || model.股票名称 == "" || !WindMain.Instance.IsValidCode(model.股票代码)) {
+                     MessageBox.Show("错误的股票代码: " + model.股票代码 + ", 股票名称: " + model.股票名称, "系统提示");
+                }
+                else 
                 {
-                    if (model.股票代码 != "" && model.股票名称 != "")
+                    if (!GUPIAO_DIC.ContainsKey(model.股票代码))
                     {
-                        if (!GUPIAO_DIC.ContainsKey(model.股票代码))
-                        {
-                            GUPIAO_DIC.Add(model.股票代码, model.股票名称);
-                        }
+                        GUPIAO_DIC.Add(model.股票代码, model.股票名称);
                     }
                 }
             }

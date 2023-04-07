@@ -126,6 +126,11 @@ namespace 基金管理
             Maticsoft.Model.绩效考核_股票信息表 model = new Maticsoft.Model.绩效考核_股票信息表();
             model.股票代码 = this.txt_股票代码.Text.Trim();
             model.股票名称 = this.txt_股票名称.Text.Trim();
+
+            if (!WindMain.Instance.IsValidCode(model.股票代码)) {
+                MessageBox.Show("错误的股票代码 " + model.股票代码, "系统提示");
+            }
+
             Maticsoft.BLL.绩效考核_股票信息表 modelBLL = new Maticsoft.BLL.绩效考核_股票信息表();
             if (!modelBLL.Exists(model.股票代码))
             {
@@ -239,8 +244,9 @@ namespace 基金管理
                                 }
                                 else
                                 {
-                                    if (temp股票代码.Length == 4 || temp股票代码.Length == 6)
+                                    if (WindMain.Instance.IsValidCode(temp股票代码)) {
                                         股票代码 = temp股票代码;
+                                    }      
                                 }
                             }
                             if (row["股票名称"] != null)

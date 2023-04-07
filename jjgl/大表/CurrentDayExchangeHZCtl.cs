@@ -200,102 +200,20 @@ namespace 基金管理
             New, //最新价格
             Current //当前日期的价格
         }
-
-        private bool IsAmericanCode(string code) 
-        {
-            // foreach(char c in code)
-            // {
-            //     if (Char.IsNumber(c))
-            //     {
-            //         return false;
-            //     }
-            // }
-
-            // string rst = code.ToUpper();
-            // foreach (var key in m_usa_code_map.Keys)
-            // {
-            //     if (m_usa_code_map[key].Contains(rst))
-            //     {
-            //         return true;
-            //     }
-            // }  
-
-            if (m_usa_code_info_map.ContainsKey(code)) {
-                return true; 
-            }
-
-            return false;
-        }
-
-        static bool IsChineseCode(string code)
-        {
-            return code.Length == 6;
-        }
-
-        static bool IsHKCode(string code)
-        {
-            return code.Length == 4;
-        }
-
-        private void InitAmericanCodeMap() {
-            for (int j =0;j < 5; ++j) 
-            {
-                string curr_date = DateTime.Now.ToString("yyyy-MM-dd");
-
-                string req_str = "date=" + curr_date + ";sectorid=1000022276000000";
-
-                WindData wd = m_WindAPI.wset("sectorconstituent", req_str);
-
-                int code_len = wd.GetCodeLength();
-                int field_len = wd.GetFieldLength();
-
-                m_usa_code_map = new Dictionary<string, HashSet<string>>();
-
-                object[,] data = (object[,])wd.getDataByFunc("wset", false);
-
-
-                for (int i = 0; i < code_len; ++i)
-                {
-                    string full_code = (string)data[i, 1];
-
-                    string code_description =  (string)data[i, 2];
-
-                    string[] tmp_code_list = full_code.Split('.');
-
-                    string code = tmp_code_list[0].ToUpper();
-                    string suffix = tmp_code_list[1].ToUpper();
-
-                    if (!m_usa_code_map.ContainsKey(suffix))
-                    {
-                        m_usa_code_map.Add(suffix, new HashSet<string>());
-                    }
-
-                    m_usa_code_map[suffix].Add(code.ToUpper());
-
-                    if (!m_usa_code_info_map.ContainsKey(full_code)) {
-                        m_usa_code_info_map.Add(full_code, code_description);
-                    }
-                }
-
-                if (m_usa_code_map.Count > 0 ||m_usa_code_info_map.Count >0) break;
-
-                Thread.Sleep(500);
-            }
-        }
         
-        private string GetAmericanCode(string code)
-        {
-            string rst = code.ToUpper();
-            foreach (var key in m_usa_code_map.Keys)
-            {
-                if (m_usa_code_map[key].Contains(rst))
-                {
-                    rst += "." + key;
-                    break;
-                }
-            }            
-            return rst;
-        }
+        // private string GetAmericanCode(string code)
+        // {
+        //     string rst = code.ToUpper();
+        //     foreach (var key in m_usa_code_map.Keys)
+        //     {
+        //         if (m_usa_code_map[key].Contains(rst))
+        //         {
+        //             rst += "." + key;
+        //             break;
+        //         }
+        //     }            
+        //     return rst;
+        // }
 
         /// <summary>
         /// 获取当日收盘价
@@ -309,11 +227,11 @@ namespace 基金管理
             string windCodes = string.Empty;
             string indicators, startTime, endTime, options;
 
-            if (IsAmericanCode(今日大表Model.股票代码))
+            if (WindMain.Instance.IsAmericanCode(今日大表Model.股票代码))
             {
                 // windCodes = GetAmericanCode(今日大表Model.股票代码);
             }
-            else if (今日大表Model.股票代码.Length == 6) //股票6位为大陆股票，4位为港股
+            else if (WindMain.Instance.IsChineseCode(今日大表Model.股票代码)) //股票6位为大陆股票，4位为港股
             {
                 if (今日大表Model.股票代码.Substring(0, 1) == "6" || 今日大表Model.股票代码.Substring(0, 2) == "51")
                     //>6打头,51打头,后缀为SH上交
@@ -321,7 +239,7 @@ namespace 基金管理
                 else //其他为sz 深交发行
                     windCodes = 今日大表Model.股票代码 + ".SZ";
             }
-            else if (今日大表Model.股票代码.Length == 4)
+            else if (WindMain.Instance.IsHKCode(今日大表Model.股票代码))
             {
                 windCodes = 今日大表Model.股票代码 + ".HK";
             } else {
@@ -338,12 +256,14 @@ namespace 基金管理
             string strKey = string.Empty;
             if (m_Eum_NewOrCurrent == NewOrCurrent.New)
             {
-                wd = m_WindAPI.wsq(windCodes, "rt_last", options);
+                // wd = m_WindAPI.wsq(windCodes, "rt_last", options);
+                wd = WindMain.Instance.GetNewClosePriceData(windCodes, options);
                 strKey = "wsq";
             }
             else if (m_Eum_NewOrCurrent == NewOrCurrent.Current)
             {
-                wd = m_WindAPI.wsd(windCodes, indicators, startTime, endTime, options);
+                // wd = m_WindAPI.wsd(windCodes, indicators, startTime, endTime, options);
+                wd = WindMain.Instance.GetCurrentClosePriceData(windCodes, indicators, startTime, endTime, options);
                 strKey = "wsd";
             }
             if (wd.errorCode == 0) //0表示执行成功，负值表示执行失败
@@ -356,10 +276,10 @@ namespace 基金管理
                     double.TryParse(string.Format("{0}", odata[0, 0]), out 市场现价);
                 }
 
-                if (IsAmericanCode(今日大表Model.股票代码)) {
+                if (WindMain.Instance.IsAmericanCode(今日大表Model.股票代码)) {
                     市场现价 *= m_sell_CNY;
                 }
-                else if (今日大表Model.股票代码.Length == 4) //如果为港股，则需要乘以当日汇率
+                else if (WindMain.Instance.IsHKCode(今日大表Model.股票代码)) //如果为港股，则需要乘以当日汇率
                 {
                     市场现价 = 市场现价 * m_卖出汇率;
                 }
@@ -372,11 +292,11 @@ namespace 基金管理
         private int m_生成记录数_增加 = 0;
         private int m_生成记录数_更新 = 0;
 
-        private WindAPI m_WindAPI = null;
+        // private WindAPI m_WindAPI = null;
 
-        private Dictionary<string, HashSet<string>> m_usa_code_map;
+        // private Dictionary<string, HashSet<string>> m_usa_code_map;
 
-        private Dictionary<string, string> m_usa_code_info_map;
+        //private Dictionary<string, string> m_usa_code_info_map;
 
         private double m_买入汇率 = 0;
         private double m_卖出汇率 = 0;
@@ -601,78 +521,78 @@ namespace 基金管理
 
             bool Wind软件_Success = false;
 
-            #region 初始化Wind软件
+            // #region 初始化Wind软件
 
-            if (m_WindAPI == null)
-            {
-                try
-                {
-                    m_WindAPI = new WindAPI();
-                    int LogRet = (int)m_WindAPI.start("", "", 2000); //2秒没有连接，返回记录
-                    if (LogRet == 0)
-                    {
-                        if (!m_WindAPI.isconnected())
-                        {
-                            MessageBox.Show("Wind软件接口读取失败", "系统提示");
-                            //return;
-                        }
-                        Wind软件_Success = true;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Wind软件接口读取失败！" + Environment.NewLine + "请检查Wind终端是否打开。错误码" + LogRet.ToString() + "。");
-                        // return;
-                    }
+            // if (m_WindAPI == null)
+            // {
+            //     try
+            //     {
+            //         m_WindAPI = new WindAPI();
+            //         int LogRet = (int)m_WindAPI.start("", "", 2000); //2秒没有连接，返回记录
+            //         if (LogRet == 0)
+            //         {
+            //             if (!m_WindAPI.isconnected())
+            //             {
+            //                 MessageBox.Show("Wind软件接口读取失败", "系统提示");
+            //                 //return;
+            //             }
+            //             Wind软件_Success = true;
+            //         }
+            //         else
+            //         {
+            //             MessageBox.Show("Wind软件接口读取失败！" + Environment.NewLine + "请检查Wind终端是否打开。错误码" + LogRet.ToString() + "。");
+            //             // return;
+            //         }
 
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("登陆失败！该计算机未安装或未开启Wind软件，或未获取Wind软件授权");
-                    //  return;
-                }
-            }
-            else
-            {
-                if (!Wind软件_Success)
-                {
-                    try
-                    {
-                        int LogRet = (int)m_WindAPI.start("", "", 2000); //2秒没有连接，返回记录
-                        if (LogRet == 0)
-                        {
-                            if (!m_WindAPI.isconnected())
-                            {
-                                MessageBox.Show("Wind软件接口读取失败", "系统提示");
-                                //return;
-                            }
-                            Wind软件_Success = true;
-                        }
-                        else
-                        {
-                            MessageBox.Show("Wind软件接口读取失败！" + Environment.NewLine + "请检查Wind终端是否打开。错误码" + LogRet.ToString() + "。");
-                            // return;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("登陆失败！该计算机未安装或未开启Wind软件，或未获取Wind软件授权");
-                        //  return;
-                    }
-                }
-            }
-            if (!Wind软件_Success) //Wind软件未联通，则弹出提示
-            {
-                if (MessageBox.Show("Wind软件接入失败，无法计算今日股市的“市场现价”，确定继续吗", "系统提示",
-                    MessageBoxButtons.OKCancel, MessageBoxIcon.Information) != DialogResult.OK)
-                {
-                    return;
-                }
-            } 
-            else
-            {
-                InitAmericanCodeMap();
-            }
-            #endregion
+            //     }
+            //     catch (Exception ex)
+            //     {
+            //         MessageBox.Show("登陆失败！该计算机未安装或未开启Wind软件，或未获取Wind软件授权");
+            //         //  return;
+            //     }
+            // }
+            // else
+            // {
+            //     if (!Wind软件_Success)
+            //     {
+            //         try
+            //         {
+            //             int LogRet = (int)m_WindAPI.start("", "", 2000); //2秒没有连接，返回记录
+            //             if (LogRet == 0)
+            //             {
+            //                 if (!m_WindAPI.isconnected())
+            //                 {
+            //                     MessageBox.Show("Wind软件接口读取失败", "系统提示");
+            //                     //return;
+            //                 }
+            //                 Wind软件_Success = true;
+            //             }
+            //             else
+            //             {
+            //                 MessageBox.Show("Wind软件接口读取失败！" + Environment.NewLine + "请检查Wind终端是否打开。错误码" + LogRet.ToString() + "。");
+            //                 // return;
+            //             }
+            //         }
+            //         catch (Exception ex)
+            //         {
+            //             MessageBox.Show("登陆失败！该计算机未安装或未开启Wind软件，或未获取Wind软件授权");
+            //             //  return;
+            //         }
+            //     }
+            // }
+            // if (!Wind软件_Success) //Wind软件未联通，则弹出提示
+            // {
+            //     if (MessageBox.Show("Wind软件接入失败，无法计算今日股市的“市场现价”，确定继续吗", "系统提示",
+            //         MessageBoxButtons.OKCancel, MessageBoxIcon.Information) != DialogResult.OK)
+            //     {
+            //         return;
+            //     }
+            // } 
+            // else
+            // {
+            //     InitAmericanCodeMap();
+            // }
+            // #endregion
 
             #region 增加  股票每日交易汇总大表 步骤1
             m_昨天大表_今日无交易_resultList.Clear();

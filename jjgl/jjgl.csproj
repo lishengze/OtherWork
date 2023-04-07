@@ -197,6 +197,7 @@
     <Compile Include="Utility\SerializerHelper.cs" />
     <Compile Include="Utility\User.cs" />
     <Compile Include="ExcelReader.cs" />
+    <Compile Include="WindDataApi.cs" />
     <Compile Include="大表\CurrentDayExchangeHZCtl.cs">
       <SubType>UserControl</SubType>
     </Compile>

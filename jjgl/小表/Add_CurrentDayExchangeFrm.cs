@@ -14,6 +14,11 @@ namespace 基金管理
     public partial class Add_CurrentDayExchangeFrm : Form
     {
         CurrentDayExchangeListCtl m_userControl;
+        private double m_buy_CNY = 0;
+        private double m_sell_CNY = 0;
+        private double m_买入汇率 = 0;
+        private double m_卖出汇率 = 0;        
+
         public Add_CurrentDayExchangeFrm(CurrentDayExchangeListCtl _userControl)
         {
             InitializeComponent();
@@ -65,52 +70,7 @@ namespace 基金管理
             }
         }
 
-        static bool IsAmericanCode(string code) 
-        {
-            foreach(char c in code)
-            {
-                if (Char.IsNumber(c))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        private void btn_增加记录_Click(object sender, EventArgs e)
-        {
-            Dictionary<string, string> 不计算税费集合_DIC = DataConvertor.Get不计算税费集合();
-
-            #region 提示输入港币人民币汇率
-            string currentDayDate = this.dateTimePicker1.Value.ToString("yyyy/MM/dd", System.Globalization.DateTimeFormatInfo.InvariantInfo);
-            Maticsoft.BLL.绩效考核_汇率 绩效考核_汇率BLL = new Maticsoft.BLL.绩效考核_汇率();
-            Maticsoft.Model.绩效考核_汇率 绩效考核_汇率Model = 绩效考核_汇率BLL.GetModel(currentDayDate);
-            double m_买入汇率 = 0;
-            double m_卖出汇率 = 0;
-            if (绩效考核_汇率Model == null) //汇率表中不存在该记录；
-            {
-                //弹出输入框，允许用户输入汇率
-                Input_汇率 frm = new Input_汇率(currentDayDate, " HK Stock Market");
-                if (frm.ShowDialog() == DialogResult.OK)
-                {
-                    m_买入汇率 = frm.港币人民币买入汇率;
-                    m_卖出汇率 = frm.港币人民币卖出汇率;
-                    绩效考核_汇率BLL.Add(new Maticsoft.Model.绩效考核_汇率(currentDayDate, m_买入汇率, m_卖出汇率));
-                }
-                else
-                { //不选择年份，结束导入动作 
-                    return;
-                }
-            }
-            else//汇率表中存在该记录；
-            {
-                m_买入汇率 = 绩效考核_汇率Model.买入汇率;
-                m_卖出汇率 = 绩效考核_汇率Model.卖出汇率;
-                绩效考核_汇率BLL.Update(new Maticsoft.Model.绩效考核_汇率(currentDayDate, m_买入汇率, m_卖出汇率));
-            }
-
-            double m_buy_CNY = 0;
-            double m_sell_CNY = 0;
+        public void InitCNY(string currentDayDate, ref Maticsoft.BLL.绩效考核_汇率 绩效考核_汇率BLL) {
             string amax_exchange_rate_key = currentDayDate + "_USA";
             Maticsoft.Model.绩效考核_汇率 amax_rate_model = 绩效考核_汇率BLL.GetModel(amax_exchange_rate_key);
             if (amax_rate_model == null) {
@@ -133,9 +93,49 @@ namespace 基金管理
                 m_sell_CNY = amax_rate_model.卖出汇率;
                 绩效考核_汇率BLL.Update(new Maticsoft.Model.绩效考核_汇率(amax_exchange_rate_key, m_buy_CNY, m_sell_CNY));                
             }
+        }
+
+        public void InitHKExchangeRate(string currentDayDate, ref Maticsoft.BLL.绩效考核_汇率 绩效考核_汇率BLL) {
+            
+            
+            Maticsoft.Model.绩效考核_汇率 绩效考核_汇率Model = 绩效考核_汇率BLL.GetModel(currentDayDate);
+            if (绩效考核_汇率Model == null) //汇率表中不存在该记录；
+            {
+                //弹出输入框，允许用户输入汇率
+                Input_汇率 frm = new Input_汇率(currentDayDate, " HK Stock Market");
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+                    m_买入汇率 = frm.港币人民币买入汇率;
+                    m_卖出汇率 = frm.港币人民币卖出汇率;
+                    绩效考核_汇率BLL.Add(new Maticsoft.Model.绩效考核_汇率(currentDayDate, m_买入汇率, m_卖出汇率));
+                }
+                else
+                { //不选择年份，结束导入动作 
+                    return;
+                }
+            }
+            else//汇率表中存在该记录；
+            {
+                m_买入汇率 = 绩效考核_汇率Model.买入汇率;
+                m_卖出汇率 = 绩效考核_汇率Model.卖出汇率;
+                绩效考核_汇率BLL.Update(new Maticsoft.Model.绩效考核_汇率(currentDayDate, m_买入汇率, m_卖出汇率));
+            }
+
+        }
+
+        private void btn_增加记录_Click(object sender, EventArgs e)
+        {
+            Dictionary<string, string> 不计算税费集合_DIC = DataConvertor.Get不计算税费集合();
+
+            #region 提示输入港币人民币汇率
+            string currentDayDate = this.dateTimePicker1.Value.ToString("yyyy/MM/dd", System.Globalization.DateTimeFormatInfo.InvariantInfo);
+            Maticsoft.BLL.绩效考核_汇率 绩效考核_汇率BLL = new Maticsoft.BLL.绩效考核_汇率();
+
+            InitHKExchangeRate(currentDayDate, ref 绩效考核_汇率BLL); //初始化港币汇率表中的值
+
+            InitCNY(currentDayDate, ref 绩效考核_汇率BLL); //初始化美元汇率
+
             #endregion
-
-
 
             Maticsoft.BLL.绩效考核_股票每日交易汇总小表 modelBLL = new Maticsoft.BLL.绩效考核_股票每日交易汇总小表();
             Maticsoft.Model.绩效考核_股票每日交易汇总小表 model = new Maticsoft.Model.绩效考核_股票每日交易汇总小表();
@@ -149,9 +149,9 @@ namespace 基金管理
                 MessageBox.Show("产品名称不能为空", "系统提示");
                 return;
             }
-            if (model.股票代码 == "" || model.股票名称 == "")
+            if (model.股票代码 == "" || model.股票名称 == "" || !WindMain.Instance.IsValidCode(model.股票代码))
             {
-                MessageBox.Show("股票代码和股票名称不能为空", "系统提示");
+                MessageBox.Show("股票代码和股票名称不能为空, 并且需要是有效代码", "系统提示");
                 return;
             }
             //added by qhc
@@ -168,12 +168,12 @@ namespace 基金管理
             //model.卖出均价 = 卖出均价;
             model.今日卖出股 = 今日卖出股;
 
-            if (IsAmericanCode(model.股票代码)) 
+            if (WindMain.Instance.IsAmericanCode(model.股票代码)) 
             {
                 model.买入均价 = 买入均价 * m_buy_CNY;
                 model.卖出均价 = 卖出均价 * m_sell_CNY;
             }
-            else if (model.股票代码.Length == 4) //港股，需要乘以汇率 
+            else if (WindMain.Instance.IsHKCode(model.股票代码)) //港股，需要乘以汇率 
             {
                 model.买入均价 = 买入均价 * m_买入汇率;
                 model.卖出均价 = 卖出均价 * m_卖出汇率;
