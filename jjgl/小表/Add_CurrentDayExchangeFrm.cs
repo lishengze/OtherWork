@@ -227,14 +227,14 @@ namespace 基金管理
             model.买入手续费 = model.买入金额 * 佣金比例;
             model.卖出手续费 = model.卖出金额 * 佣金比例;
 
-            if (long.Parse(model.股票代码) > 600000)
-            {
-                model.买入过户费 = model.买入金额 * 过户费比例;
-                model.卖出过户费 = model.卖出金额 * 过户费比例;
+            // if (WindMain.Instance.IsChineseCode(model.股票代码))
+            // {
+            //     model.买入过户费 = model.买入金额 * 过户费比例;
+            //     model.卖出过户费 = model.卖出金额 * 过户费比例;
 
-                //model.买入过户费 = model.今日买入股 * 过户费比例;
-                //model.卖出过户费 = model.今日卖出股 * 过户费比例;
-            }
+            //     //model.买入过户费 = model.今日买入股 * 过户费比例;
+            //     //model.卖出过户费 = model.今日卖出股 * 过户费比例;
+            // }
             //只有卖出，才有“卖出印花税”，无“买入印花税”；
             model.卖出印花税 = model.卖出金额 * 印花税比例;
 
