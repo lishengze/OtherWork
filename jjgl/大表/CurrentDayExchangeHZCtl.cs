@@ -229,6 +229,8 @@ namespace 基金管理
 
             if (WindMain.Instance.IsAmericanCode(今日大表Model.股票代码))
             {
+                windCodes = 今日大表Model.股票代码;
+                
                 // windCodes = GetAmericanCode(今日大表Model.股票代码);
             }
             else if (WindMain.Instance.IsChineseCode(今日大表Model.股票代码)) //股票6位为大陆股票，4位为港股
@@ -246,6 +248,8 @@ namespace 基金管理
                 MessageBox.Show("无法识别的股票代码: " + 今日大表Model.股票代码);
                 return 0;
             }
+
+            LOG.Instance.Info("此次股票: " + windCodes);
 
             indicators = "close";
             startTime = date.Trim() + " 8:00:00";//开盘时间 9点
@@ -276,14 +280,18 @@ namespace 基金管理
                     double.TryParse(string.Format("{0}", odata[0, 0]), out 市场现价);
                 }
 
+                LOG.Instance.Info("此次股票: " + windCodes + ",市场现价: " + Convert.ToString(市场现价)); //市场现价格 股票代码 开盘时间 收
+
                 if (WindMain.Instance.IsAmericanCode(今日大表Model.股票代码)) {
                     市场现价 *= m_sell_CNY;
                 }
                 else if (WindMain.Instance.IsHKCode(今日大表Model.股票代码)) //如果为港股，则需要乘以当日汇率
                 {
                     市场现价 = 市场现价 * m_卖出汇率;
-                }
+                } 
                 return 市场现价;
+            } else {
+                MessageBox.Show("获取市价失败: " + 今日大表Model.股票代码);
             }
             return 0;
         }

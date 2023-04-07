@@ -182,6 +182,7 @@
       <DependentUpon>Edit_Password.cs</DependentUpon>
     </Compile>
     <Compile Include="ExcelHelper.cs" />
+    <Compile Include="LogFile.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
