@@ -141,9 +141,15 @@ namespace 基金管理
                     this.txt_股票名称.Text = "";
                     this.Refresh_股票();
                     MessageBox.Show("股票增加成功！", "系统提示");
+
+
                 }
                 else
                     MessageBox.Show("增加失败，数据库操作失败", "系统提示");
+
+                if (!MainFrm.GUPIAO_DIC.ContainsKey(model.股票代码)) {
+                    MainFrm.GUPIAO_DIC.Add(model.股票代码, model.股票名称);
+                }
             }
             else
                 MessageBox.Show(string.Format("增加失败！，存在代码为“{0}”的股票！", model.股票代码), "系统提示");
@@ -270,6 +276,13 @@ namespace 基金管理
                                     if (modelBLL.Add(model))
                                         addedCount++;
                                 }
+
+                                if (!MainFrm.GUPIAO_DIC.ContainsKey(model.股票代码)) {
+                                    MainFrm.GUPIAO_DIC.Add(model.股票代码, model.股票名称);
+                                } else {
+                                    MainFrm.GUPIAO_DIC[model.股票代码] = model.股票名称;
+                                }
+
                             }
                         }
                     }
@@ -302,6 +315,12 @@ namespace 基金管理
                 Maticsoft.Model.绩效考核_股票信息表 model = new Maticsoft.Model.绩效考核_股票信息表();
                 model.股票代码 = this.txt_股票代码.Text.Trim();
                 model.股票名称 = this.txt_股票名称.Text.Trim();
+
+                if (!MainFrm.GUPIAO_DIC.ContainsKey(model.股票代码)) {
+                    MainFrm.GUPIAO_DIC.Add(model.股票代码, model.股票名称);
+                } else {
+                    MainFrm.GUPIAO_DIC[model.股票代码] = model.股票名称;
+                }
 
                 if (modelBLL.Update(model))
                 {
