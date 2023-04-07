@@ -129,6 +129,7 @@ namespace 基金管理
 
             if (!WindMain.Instance.IsValidCode(model.股票代码)) {
                 MessageBox.Show("错误的股票代码 " + model.股票代码, "系统提示");
+                return;
             }
 
             Maticsoft.BLL.绩效考核_股票信息表 modelBLL = new Maticsoft.BLL.绩效考核_股票信息表();
