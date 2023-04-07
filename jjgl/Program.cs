@@ -13,6 +13,10 @@ namespace 基金管理
         [STAThread]
         static void Main()
         {
+            WindMain.Instance.Run();
+            LOG.Instance.Run();
+            LOG.Instance.Info("Hello!");
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //MainFrm frm = new MainFrm(null);
