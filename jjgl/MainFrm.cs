@@ -144,7 +144,10 @@ namespace 基金管理
             foreach (Maticsoft.Model.绩效考核_股票信息表 model in modelList)
             {
                 if (model.股票代码 == "" || model.股票名称 == "" || !WindMain.Instance.IsValidCode(model.股票代码)) {
-                     MessageBox.Show("错误的股票代码: " + model.股票代码 + ", 股票名称: " + model.股票名称, "系统提示");
+
+                    MessageBox.Show("导入数据库股票发现错误的股票代码: " + model.股票代码 + ", 股票名称: " + model.股票名称, "系统提示");
+
+                    modelBLL.Delete(model.股票代码);
                 }
                 else 
                 {
