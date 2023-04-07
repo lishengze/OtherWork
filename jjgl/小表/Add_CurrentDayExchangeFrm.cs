@@ -127,15 +127,7 @@ namespace 基金管理
         {
             Dictionary<string, string> 不计算税费集合_DIC = DataConvertor.Get不计算税费集合();
 
-            #region 提示输入港币人民币汇率
-            string currentDayDate = this.dateTimePicker1.Value.ToString("yyyy/MM/dd", System.Globalization.DateTimeFormatInfo.InvariantInfo);
-            Maticsoft.BLL.绩效考核_汇率 绩效考核_汇率BLL = new Maticsoft.BLL.绩效考核_汇率();
 
-            InitHKExchangeRate(currentDayDate, ref 绩效考核_汇率BLL); //初始化港币汇率表中的值
-
-            InitCNY(currentDayDate, ref 绩效考核_汇率BLL); //初始化美元汇率
-
-            #endregion
 
             Maticsoft.BLL.绩效考核_股票每日交易汇总小表 modelBLL = new Maticsoft.BLL.绩效考核_股票每日交易汇总小表();
             Maticsoft.Model.绩效考核_股票每日交易汇总小表 model = new Maticsoft.Model.绩效考核_股票每日交易汇总小表();
@@ -168,13 +160,23 @@ namespace 基金管理
             //model.卖出均价 = 卖出均价;
             model.今日卖出股 = 今日卖出股;
 
+            #region 提示输入港币人民币汇率
+            string currentDayDate = this.dateTimePicker1.Value.ToString("yyyy/MM/dd", System.Globalization.DateTimeFormatInfo.InvariantInfo);
+            Maticsoft.BLL.绩效考核_汇率 绩效考核_汇率BLL = new Maticsoft.BLL.绩效考核_汇率();
+
+            #endregion
+
             if (WindMain.Instance.IsAmericanCode(model.股票代码)) 
             {
+                InitCNY(currentDayDate, ref 绩效考核_汇率BLL); //初始化美元汇率
+
                 model.买入均价 = 买入均价 * m_buy_CNY;
                 model.卖出均价 = 卖出均价 * m_sell_CNY;
             }
             else if (WindMain.Instance.IsHKCode(model.股票代码)) //港股，需要乘以汇率 
             {
+                InitHKExchangeRate(currentDayDate, ref 绩效考核_汇率BLL); //初始化港币汇率表中的值
+
                 model.买入均价 = 买入均价 * m_买入汇率;
                 model.卖出均价 = 卖出均价 * m_卖出汇率;
             }
