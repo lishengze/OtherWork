@@ -15,7 +15,7 @@ namespace 基金管理
     public partial class WindMain
     {
         public WindAPI m_WindAPI = null;   // wind api;
-        private bool Wind_Success = false;  // 是否连接标记
+        public bool Wind_Success = false;  // 是否连接标记
         public Dictionary<string, HashSet<string>> m_usa_code_map;
 
         public Dictionary<string, string> m_usa_code_info_map;
@@ -48,11 +48,42 @@ namespace 基金管理
         {
             Console.WriteLine("初始化WindMain");
             InitWindApi();
+
+            InitAmericanCodeMap();
+        }
+
+        public void ConnectWind() {
+            if (!Wind_Success)
+            {
+                try
+                {
+                    int LogRet = (int)m_WindAPI.start("", "", 2000); //2秒没有连接，返回记录
+                    if (LogRet == 0)
+                    {
+                        if (!m_WindAPI.isconnected())
+                        {
+                            MessageBox.Show("Wind软件接口读取失败", "系统提示");
+                            //return;
+                        }
+                        Wind_Success = true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Wind软件接口读取失败！" + Environment.NewLine + "请检查Wind终端是否打开。错误码" + LogRet.ToString() + "。");
+                        // return;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("登陆失败！该计算机未安装或未开启Wind软件，或未获取Wind软件授权");
+                    //  return;
+                }
+            }
         }
 
         public void InitWindApi() 
         {
-        if (m_WindAPI == null)
+            if (m_WindAPI == null)
             {
                 try
                 {
@@ -69,46 +100,22 @@ namespace 基金管理
                     }
                     else
                     {
-                        MessageBox.Show("Wind软件接口读取失败！" + Environment.NewLine + "请检查Wind终端是否打开。错误码" + LogRet.ToString() + "。");
+                        MessageBox.Show("Wind软件接口读取失败,无法获取美股信息,市价相关信息," + Environment.NewLine + "请检查Wind终端是否打开。错误码" + LogRet.ToString() + "。");
                         // return;
                     }
 
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("登陆失败！该计算机未安装或未开启Wind软件，或未获取Wind软件授权");
+                    MessageBox.Show("wind 登陆失败, 无法获取美股信息,市价相关信息, 该计算机未安装或未开启Wind软件，或未获取Wind软件授权");
                     //  return;
                 }
             }
             else
             {
-                if (!Wind_Success)
-                {
-                    try
-                    {
-                        int LogRet = (int)m_WindAPI.start("", "", 2000); //2秒没有连接，返回记录
-                        if (LogRet == 0)
-                        {
-                            if (!m_WindAPI.isconnected())
-                            {
-                                MessageBox.Show("Wind软件接口读取失败", "系统提示");
-                                //return;
-                            }
-                            Wind_Success = true;
-                        }
-                        else
-                        {
-                            MessageBox.Show("Wind软件接口读取失败！" + Environment.NewLine + "请检查Wind终端是否打开。错误码" + LogRet.ToString() + "。");
-                            // return;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("登陆失败！该计算机未安装或未开启Wind软件，或未获取Wind软件授权");
-                        //  return;
-                    }
-                }
+                ConnectWind();
             }
+
             if (!Wind_Success) //Wind软件未联通，则弹出提示
             {
                 if (MessageBox.Show("Wind软件接入失败，无法计算今日股市的“市场现价”，确定继续吗", "系统提示",
@@ -117,70 +124,69 @@ namespace 基金管理
                     return;
                 }
             } 
-            else
-            {
-                InitAmericanCodeMap();
-            }
         }
 
         private void InitAmericanCodeMap() {
-            for (int j =0;j < 5; ++j) 
-            {
-                string curr_date = DateTime.Now.ToString("yyyy-MM-dd");
-
-                string req_str = "date=" + curr_date + ";sectorid=1000022276000000";
-
-                WindData wd = m_WindAPI.wset("sectorconstituent", req_str);
-
-                int code_len = wd.GetCodeLength();
-                int field_len = wd.GetFieldLength();
-
-                m_usa_code_map = new Dictionary<string, HashSet<string>>();
-                m_usa_code_info_map = new Dictionary<string, string>();
-
-                object[,] data = (object[,])wd.getDataByFunc("wset", false);
-
-                // for (int i1 = 0; i1 < code_len; ++i1)
-                // {
-                //     for (int i2 = 0; i2 < field_len; i2++)
-                //     {
-                //         Console.Write("{0}:{1} ", i2, data[i1, i2]);
-                //     }
-                //     Console.WriteLine();
-                // }
-                
-
-                for (int i = 0; i < code_len; ++i)
+            if (Wind_Success) {
+                for (int j =0;j < 5; ++j) 
                 {
-                    string full_code = (string)data[i, 1];
+                    string curr_date = DateTime.Now.ToString("yyyy-MM-dd");
 
-                    string code_description =  (string)data[i, 2];
+                    string req_str = "date=" + curr_date + ";sectorid=1000022276000000";
 
-                    string[] tmp_code_list = full_code.Split('.');
+                    WindData wd = m_WindAPI.wset("sectorconstituent", req_str);
 
-                    string code = tmp_code_list[0].ToUpper();
-                    string suffix = tmp_code_list[1].ToUpper();
+                    int code_len = wd.GetCodeLength();
+                    int field_len = wd.GetFieldLength();
 
-                    if (!m_usa_code_map.ContainsKey(suffix))
+                    m_usa_code_map = new Dictionary<string, HashSet<string>>();
+                    m_usa_code_info_map = new Dictionary<string, string>();
+
+                    object[,] data = (object[,])wd.getDataByFunc("wset", false);
+
+                    // for (int i1 = 0; i1 < code_len; ++i1)
+                    // {
+                    //     for (int i2 = 0; i2 < field_len; i2++)
+                    //     {
+                    //         Console.Write("{0}:{1} ", i2, data[i1, i2]);
+                    //     }
+                    //     Console.WriteLine();
+                    // }
+                    
+
+                    for (int i = 0; i < code_len; ++i)
                     {
-                        m_usa_code_map.Add(suffix, new HashSet<string>());
+                        string full_code = (string)data[i, 1];
+
+                        string code_description =  (string)data[i, 2];
+
+                        string[] tmp_code_list = full_code.Split('.');
+
+                        string code = tmp_code_list[0].ToUpper();
+                        string suffix = tmp_code_list[1].ToUpper();
+
+                        if (!m_usa_code_map.ContainsKey(suffix))
+                        {
+                            m_usa_code_map.Add(suffix, new HashSet<string>());
+                        }
+
+                        m_usa_code_map[suffix].Add(code.ToUpper());
+
+                        if (!m_usa_code_info_map.ContainsKey(full_code)) {
+                            m_usa_code_info_map.Add(full_code, code_description);
+                        }
                     }
 
-                    m_usa_code_map[suffix].Add(code.ToUpper());
+                    // foreach (var item in m_usa_code_info_map) {
+                    //     Console.WriteLine("{0}:{1} ", item.Key, item.Value);
+                    // }
 
-                    if (!m_usa_code_info_map.ContainsKey(full_code)) {
-                        m_usa_code_info_map.Add(full_code, code_description);
-                    }
+                    if (m_usa_code_map.Count > 0 ||m_usa_code_info_map.Count >0) break;
+
+                    Thread.Sleep(500);
                 }
-
-                // foreach (var item in m_usa_code_info_map) {
-                //     Console.WriteLine("{0}:{1} ", item.Key, item.Value);
-                // }
-
-                if (m_usa_code_map.Count > 0 ||m_usa_code_info_map.Count >0) break;
-
-                Thread.Sleep(500);
             }
+
         }
         
 
@@ -203,11 +209,13 @@ namespace 基金管理
             return IsChineseCode(code) || IsHKCode(code) || IsAmericanCode(code);
         }
         public WindData GetNewClosePriceData(string windCodes, string options) {
+            InitWindApi();
             return m_WindAPI.wsq(windCodes, "rt_last", options);
         }
 
         public WindData GetCurrentClosePriceData(string windCodes, string indicators, 
                             string startTime, string endTime, string options) {
+            InitWindApi();
             return m_WindAPI.wsd(windCodes, indicators, startTime, endTime, options);          
         }
     }

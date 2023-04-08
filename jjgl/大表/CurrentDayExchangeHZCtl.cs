@@ -223,6 +223,7 @@ namespace 基金管理
         /// <returns></returns>
         private double GetClosePrice(Maticsoft.Model.绩效考核_股票每日交易汇总大表 今日大表Model, string date)
         {
+            LOG.Instance.Info("GetClosePrice: " + date);
 
             string windCodes = string.Empty;
             string indicators, startTime, endTime, options;
@@ -230,8 +231,6 @@ namespace 基金管理
             if (WindMain.Instance.IsAmericanCode(今日大表Model.股票代码))
             {
                 windCodes = 今日大表Model.股票代码;
-                
-                // windCodes = GetAmericanCode(今日大表Model.股票代码);
             }
             else if (WindMain.Instance.IsChineseCode(今日大表Model.股票代码)) //股票6位为大陆股票，4位为港股
             {
@@ -527,7 +526,7 @@ namespace 基金管理
             string sql3 = string.Format("delete from 绩效考核_基金经理净值贡献表 where 时间 = '{0}'", currentDayDate);
             int result = DbHelperSQL.ExecuteSql(sql1 + ";" + sql2 + ";" + sql3);
 
-            bool Wind软件_Success = false;
+            // bool Wind软件_Success = false;
 
             // #region 初始化Wind软件
 
@@ -678,7 +677,7 @@ namespace 基金管理
                 }
                 else//字典里不存在，通过函数求取该值，并存放到字典中
                 {
-                    今日大表Model.市场现价 = Get市场现价(今日大表Model, Wind软件_Success, DIC_现金替代物, DIC_未上市股票);
+                    今日大表Model.市场现价 = Get市场现价(今日大表Model,  DIC_现金替代物, DIC_未上市股票);
                     DIC_股票代码_市场现价.Add(今日大表Model.股票代码, 今日大表Model.市场现价);
                 }
                 今日大表Model.今日市值 = 今日大表Model.持股数量 * 今日大表Model.市场现价;
@@ -745,7 +744,7 @@ namespace 基金管理
                 }
                 else//字典里不存在，通过函数求取该值，并存放到字典中
                 {
-                    今日大表Model.市场现价 = Get市场现价(今日大表Model, Wind软件_Success, DIC_现金替代物, DIC_未上市股票);
+                    今日大表Model.市场现价 = Get市场现价(今日大表Model, DIC_现金替代物, DIC_未上市股票);
                     DIC_股票代码_市场现价.Add(今日大表Model.股票代码, 今日大表Model.市场现价);
                 }
                 //今日无交易时，“持股数量”、“持股成本” 不变
@@ -1086,7 +1085,7 @@ namespace 基金管理
         /// <param name="DIC_现金替代物"></param>
         /// <param name="DIC_未上市股票"></param>
         /// <returns></returns>
-        private double Get市场现价(Maticsoft.Model.绩效考核_股票每日交易汇总大表 今日大表Model, bool Wind软件_Success,
+        private double Get市场现价(Maticsoft.Model.绩效考核_股票每日交易汇总大表 今日大表Model,
             Dictionary<string, string> DIC_现金替代物, Dictionary<string, string> DIC_未上市股票)
         {
             int max = 0;
@@ -1100,30 +1099,29 @@ namespace 基金管理
             }
             else
             {
-                if (Wind软件_Success) //Wind软件联通，以下操作有意义
+
+                if (DIC_未上市股票.ContainsKey(今日大表Model.股票代码)) //未上市股票
                 {
-                    if (DIC_未上市股票.ContainsKey(今日大表Model.股票代码)) //未上市股票
+                    m_市场现价 = GetClosePrice(今日大表Model, 今日大表Model.时间);
+                    if (m_市场现价 == 0)
+                        m_市场现价 = 今日大表Model.持股成本;
+                }
+                else //普通股票
+                {
+                    m_市场现价 = GetClosePrice(今日大表Model, 今日大表Model.时间);
+                    DateTime lastDayDate = this.dateTimePicker1.Value.AddDays(-1);
+                    while (m_市场现价 == 0) //一直获取上一日的市场现价，直到获取到的市场现价不为0为止；
                     {
-                        m_市场现价 = GetClosePrice(今日大表Model, 今日大表Model.时间);
-                        if (m_市场现价 == 0)
-                            m_市场现价 = 今日大表Model.持股成本;
-                    }
-                    else //普通股票
-                    {
-                        m_市场现价 = GetClosePrice(今日大表Model, 今日大表Model.时间);
-                        DateTime lastDayDate = this.dateTimePicker1.Value.AddDays(-1);
-                        while (m_市场现价 == 0) //一直获取上一日的市场现价，直到获取到的市场现价不为0为止；
-                        {
-                            m_市场现价 = GetClosePrice(今日大表Model, lastDayDate.ToString("yyyy/MM/dd", System.Globalization.DateTimeFormatInfo.InvariantInfo));
-                            if (m_市场现价 != 0)
-                                break;
-                            if (max > 5) //获取超过5次，则不再继续获取
-                                break;
-                            lastDayDate = lastDayDate.AddDays(-1);
-                            max++;
-                        }
+                        m_市场现价 = GetClosePrice(今日大表Model, lastDayDate.ToString("yyyy/MM/dd", System.Globalization.DateTimeFormatInfo.InvariantInfo));
+                        if (m_市场现价 != 0)
+                            break;
+                        if (max > 5) //获取超过5次，则不再继续获取
+                            break;
+                        lastDayDate = lastDayDate.AddDays(-1);
+                        max++;
                     }
                 }
+
             }
             #endregion
 

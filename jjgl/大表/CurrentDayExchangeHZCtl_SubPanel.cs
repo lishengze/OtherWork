@@ -55,6 +55,22 @@ namespace 基金管理
             }
         }
 
+        public string ParseDouble(string data) {
+            double result = 0.0;
+            if (Double.TryParse(data, out result)) {
+                return result.ToString("f2");
+            }
+            return "0.00";
+        }
+
+        public string ParsePercentDouble(string data) {
+            double result = 0.0;
+            if (Double.TryParse(data, out result)) {
+                return result.ToString("P");
+            }
+            return "0.0%";
+        }
+
 
         private void RefreshDataGridView()
         {
@@ -91,15 +107,23 @@ namespace 基金管理
 
                         #region 调整显示的小数位数
                         //调整 参数的显示位数 （只显示 小数点后两位 ） 
-                        row["持股成本"] = Convert.ToDouble(row["持股成本"].ToString()).ToString("f2");//保留小数点后两位
-                        row["投资成本"] = Convert.ToDouble(row["投资成本"].ToString()).ToString("f2");//保留小数点后两位
-                        row["今日市值"] = Convert.ToDouble(row["今日市值"].ToString()).ToString("f2");//保留小数点后两位
-                        row["浮盈浮亏"] = Convert.ToDouble(row["浮盈浮亏"].ToString()).ToString("f2");//保留小数点后两位
-                        row["投资成本占比"] = Convert.ToDouble(row["投资成本占比"].ToString()).ToString("P"); //自动加%，并且保留小数点后两位
-                        row["市值占比"] = Convert.ToDouble(row["市值占比"].ToString()).ToString("P");
-                        row["浮盈浮亏率"] = Convert.ToDouble(row["浮盈浮亏率"].ToString()).ToString("P");
-                        row["当日盈亏"] = Convert.ToDouble(row["当日盈亏"].ToString()).ToString("f2");
+                        // row["持股成本"] = Convert.ToDouble(row["持股成本"].ToString()).ToString("f2");//保留小数点后两位
+                        // row["投资成本"] = Convert.ToDouble(row["投资成本"].ToString()).ToString("f2");//保留小数点后两位
+                        // row["今日市值"] = Convert.ToDouble(row["今日市值"].ToString()).ToString("f2");//保留小数点后两位
+                        // row["浮盈浮亏"] = Convert.ToDouble(row["浮盈浮亏"].ToString()).ToString("f2");//保留小数点后两位
+                        // row["当日盈亏"] = Convert.ToDouble(row["当日盈亏"].ToString()).ToString("f2");
 
+                        row["当日盈亏"] = ParseDouble(row["当日盈亏"].ToString());
+                        row["浮盈浮亏"] = ParseDouble(row["浮盈浮亏"].ToString());
+                        row["今日市值"] = ParseDouble(row["今日市值"].ToString());
+                        row["投资成本"] = ParseDouble(row["投资成本"].ToString());
+                        row["持股成本"] = ParseDouble(row["持股成本"].ToString());
+
+    
+                        row["浮盈浮亏率"] = ParsePercentDouble(row["浮盈浮亏率"].ToString());
+                        row["市值占比"] = ParsePercentDouble(row["市值占比"].ToString());
+                        row["投资成本占比"] = ParsePercentDouble(row["投资成本占比"].ToString());
+                        
                         #endregion
 
                     }
