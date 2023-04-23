@@ -47,8 +47,16 @@ def get_usa_code():
     usa_code = w.wset("SectorConstituent",date = date ,sector=u"全部美股")    
     print("usa_code: \n")
     print(usa_code)    
+    
+def get_beijing_code():
+    date = datetime.today()
+
+    usa_code = w.wset("sectorconstituent","date=2023-04-21;sectorid=1000045156000000")    
+    print("beijiaosuo: \n")
+    print(usa_code)        
 
 
 if __name__ == '__main__':
     # demo1()
-    get_usa_code()
+    # get_usa_code()
+    get_beijing_code()

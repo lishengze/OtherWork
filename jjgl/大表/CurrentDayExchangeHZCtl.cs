@@ -232,6 +232,10 @@ namespace 基金管理
             {
                 windCodes = 今日大表Model.股票代码;
             }
+            else if (WindMain.Instance.IsBeijingCode(今日大表Model.股票代码))
+            {
+                windCodes = 今日大表Model.股票代码 + ".BJ";
+            }
             else if (WindMain.Instance.IsChineseCode(今日大表Model.股票代码)) //股票6位为大陆股票，4位为港股
             {
                 if (今日大表Model.股票代码.Substring(0, 1) == "6" || 今日大表Model.股票代码.Substring(0, 2) == "51")

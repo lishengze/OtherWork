@@ -28,16 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dataGridView_汇率 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.comboBox_RateType = new System.Windows.Forms.ComboBox();
             this.btn_重置汇率 = new System.Windows.Forms.Button();
             this.datetimer_汇率_时间 = new System.Windows.Forms.DateTimePicker();
             this.label6 = new System.Windows.Forms.Label();
@@ -82,10 +84,11 @@
             this.tableLayoutPanel1.Controls.Add(this.groupBox3, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1534, 696);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1364, 580);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // groupBox1
@@ -93,9 +96,11 @@
             this.groupBox1.Controls.Add(this.dataGridView_汇率);
             this.groupBox1.Controls.Add(this.panel1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(770, 3);
+            this.groupBox1.Location = new System.Drawing.Point(685, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(761, 690);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox1.Size = new System.Drawing.Size(676, 576);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "汇率管理";
@@ -104,43 +109,46 @@
             // 
             this.dataGridView_汇率.AllowUserToAddRows = false;
             this.dataGridView_汇率.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_汇率.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_汇率.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridView_汇率.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView_汇率.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView_汇率.DefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridView_汇率.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView_汇率.Location = new System.Drawing.Point(3, 195);
+            this.dataGridView_汇率.Location = new System.Drawing.Point(3, 162);
+            this.dataGridView_汇率.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridView_汇率.Name = "dataGridView_汇率";
             this.dataGridView_汇率.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_汇率.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_汇率.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dataGridView_汇率.RowTemplate.Height = 30;
             this.dataGridView_汇率.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_汇率.Size = new System.Drawing.Size(755, 492);
+            this.dataGridView_汇率.Size = new System.Drawing.Size(670, 412);
             this.dataGridView_汇率.TabIndex = 17;
             this.dataGridView_汇率.SelectionChanged += new System.EventHandler(this.dataGridView_汇率_SelectionChanged);
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label8);
+            this.panel1.Controls.Add(this.comboBox_RateType);
             this.panel1.Controls.Add(this.btn_重置汇率);
             this.panel1.Controls.Add(this.datetimer_汇率_时间);
             this.panel1.Controls.Add(this.label6);
@@ -152,16 +160,36 @@
             this.panel1.Controls.Add(this.txt_卖出汇率);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(3, 24);
+            this.panel1.Location = new System.Drawing.Point(3, 20);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(755, 171);
+            this.panel1.Size = new System.Drawing.Size(670, 142);
             this.panel1.TabIndex = 16;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(328, 22);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(67, 15);
+            this.label8.TabIndex = 53;
+            this.label8.Text = "汇率类型";
+            // 
+            // comboBox_RateType
+            // 
+            this.comboBox_RateType.FormattingEnabled = true;
+            this.comboBox_RateType.Location = new System.Drawing.Point(408, 19);
+            this.comboBox_RateType.Name = "comboBox_RateType";
+            this.comboBox_RateType.Size = new System.Drawing.Size(57, 23);
+            this.comboBox_RateType.TabIndex = 52;
+            this.comboBox_RateType.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // btn_重置汇率
             // 
-            this.btn_重置汇率.Location = new System.Drawing.Point(534, 114);
+            this.btn_重置汇率.Location = new System.Drawing.Point(562, 95);
+            this.btn_重置汇率.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_重置汇率.Name = "btn_重置汇率";
-            this.btn_重置汇率.Size = new System.Drawing.Size(118, 34);
+            this.btn_重置汇率.Size = new System.Drawing.Size(105, 28);
             this.btn_重置汇率.TabIndex = 51;
             this.btn_重置汇率.Text = "重  置";
             this.btn_重置汇率.UseVisualStyleBackColor = true;
@@ -169,32 +197,35 @@
             // 
             // datetimer_汇率_时间
             // 
-            this.datetimer_汇率_时间.Location = new System.Drawing.Point(116, 26);
+            this.datetimer_汇率_时间.Location = new System.Drawing.Point(103, 22);
+            this.datetimer_汇率_时间.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.datetimer_汇率_时间.Name = "datetimer_汇率_时间";
-            this.datetimer_汇率_时间.Size = new System.Drawing.Size(230, 28);
+            this.datetimer_汇率_时间.Size = new System.Drawing.Size(205, 25);
             this.datetimer_汇率_时间.TabIndex = 50;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(51, 32);
+            this.label6.Location = new System.Drawing.Point(45, 27);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(44, 18);
+            this.label6.Size = new System.Drawing.Size(37, 15);
             this.label6.TabIndex = 49;
             this.label6.Text = "时间";
             // 
             // txt_买入汇率
             // 
-            this.txt_买入汇率.Location = new System.Drawing.Point(116, 72);
+            this.txt_买入汇率.Location = new System.Drawing.Point(103, 60);
+            this.txt_买入汇率.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txt_买入汇率.Name = "txt_买入汇率";
-            this.txt_买入汇率.Size = new System.Drawing.Size(230, 28);
+            this.txt_买入汇率.Size = new System.Drawing.Size(205, 25);
             this.txt_买入汇率.TabIndex = 33;
             // 
             // btn_删除汇率
             // 
-            this.btn_删除汇率.Location = new System.Drawing.Point(399, 114);
+            this.btn_删除汇率.Location = new System.Drawing.Point(418, 95);
+            this.btn_删除汇率.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_删除汇率.Name = "btn_删除汇率";
-            this.btn_删除汇率.Size = new System.Drawing.Size(118, 34);
+            this.btn_删除汇率.Size = new System.Drawing.Size(105, 28);
             this.btn_删除汇率.TabIndex = 32;
             this.btn_删除汇率.Text = "删  除";
             this.btn_删除汇率.UseVisualStyleBackColor = true;
@@ -202,9 +233,10 @@
             // 
             // btn_修改汇率
             // 
-            this.btn_修改汇率.Location = new System.Drawing.Point(266, 114);
+            this.btn_修改汇率.Location = new System.Drawing.Point(253, 95);
+            this.btn_修改汇率.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_修改汇率.Name = "btn_修改汇率";
-            this.btn_修改汇率.Size = new System.Drawing.Size(118, 34);
+            this.btn_修改汇率.Size = new System.Drawing.Size(105, 28);
             this.btn_修改汇率.TabIndex = 31;
             this.btn_修改汇率.Text = "修  改";
             this.btn_修改汇率.UseVisualStyleBackColor = true;
@@ -212,9 +244,10 @@
             // 
             // btn_增加汇率
             // 
-            this.btn_增加汇率.Location = new System.Drawing.Point(119, 114);
+            this.btn_增加汇率.Location = new System.Drawing.Point(103, 95);
+            this.btn_增加汇率.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_增加汇率.Name = "btn_增加汇率";
-            this.btn_增加汇率.Size = new System.Drawing.Size(118, 34);
+            this.btn_增加汇率.Size = new System.Drawing.Size(105, 28);
             this.btn_增加汇率.TabIndex = 30;
             this.btn_增加汇率.Text = "增  加";
             this.btn_增加汇率.UseVisualStyleBackColor = true;
@@ -223,25 +256,26 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(26, 79);
+            this.label1.Location = new System.Drawing.Point(23, 66);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(80, 18);
+            this.label1.Size = new System.Drawing.Size(67, 15);
             this.label1.TabIndex = 28;
             this.label1.Text = "买入汇率";
             // 
             // txt_卖出汇率
             // 
-            this.txt_卖出汇率.Location = new System.Drawing.Point(459, 69);
+            this.txt_卖出汇率.Location = new System.Drawing.Point(408, 57);
+            this.txt_卖出汇率.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txt_卖出汇率.Name = "txt_卖出汇率";
-            this.txt_卖出汇率.Size = new System.Drawing.Size(230, 28);
+            this.txt_卖出汇率.Size = new System.Drawing.Size(205, 25);
             this.txt_卖出汇率.TabIndex = 27;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(369, 74);
+            this.label3.Location = new System.Drawing.Point(328, 62);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(80, 18);
+            this.label3.Size = new System.Drawing.Size(67, 15);
             this.label3.TabIndex = 15;
             this.label3.Text = "卖出汇率";
             // 
@@ -250,9 +284,11 @@
             this.groupBox3.Controls.Add(this.dataGridView_用户);
             this.groupBox3.Controls.Add(this.panel2);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.Location = new System.Drawing.Point(3, 3);
+            this.groupBox3.Location = new System.Drawing.Point(3, 2);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(761, 690);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox3.Size = new System.Drawing.Size(676, 576);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "用户管理";
@@ -261,38 +297,39 @@
             // 
             this.dataGridView_用户.AllowUserToAddRows = false;
             this.dataGridView_用户.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_用户.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_用户.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
             this.dataGridView_用户.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView_用户.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView_用户.DefaultCellStyle = dataGridViewCellStyle11;
             this.dataGridView_用户.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView_用户.Location = new System.Drawing.Point(3, 195);
+            this.dataGridView_用户.Location = new System.Drawing.Point(3, 162);
+            this.dataGridView_用户.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridView_用户.Name = "dataGridView_用户";
             this.dataGridView_用户.ReadOnly = true;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_用户.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_用户.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
             this.dataGridView_用户.RowTemplate.Height = 30;
             this.dataGridView_用户.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_用户.Size = new System.Drawing.Size(755, 492);
+            this.dataGridView_用户.Size = new System.Drawing.Size(670, 412);
             this.dataGridView_用户.TabIndex = 17;
             this.dataGridView_用户.SelectionChanged += new System.EventHandler(this.dataGridView_用户_SelectionChanged);
             // 
@@ -312,17 +349,18 @@
             this.panel2.Controls.Add(this.txt_用户名);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(3, 24);
+            this.panel2.Location = new System.Drawing.Point(3, 20);
+            this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(755, 171);
+            this.panel2.Size = new System.Drawing.Size(670, 142);
             this.panel2.TabIndex = 16;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(349, 75);
+            this.label7.Location = new System.Drawing.Point(310, 62);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(80, 18);
+            this.label7.Size = new System.Drawing.Size(67, 15);
             this.label7.TabIndex = 39;
             this.label7.Text = "用户角色";
             // 
@@ -334,16 +372,18 @@
             "管理员",
             "普通用户",
             "市场部用户"});
-            this.cmb_角色.Location = new System.Drawing.Point(436, 70);
+            this.cmb_角色.Location = new System.Drawing.Point(388, 58);
+            this.cmb_角色.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cmb_角色.Name = "cmb_角色";
-            this.cmb_角色.Size = new System.Drawing.Size(196, 26);
+            this.cmb_角色.Size = new System.Drawing.Size(175, 23);
             this.cmb_角色.TabIndex = 38;
             // 
             // btn_修改管理员密码
             // 
-            this.btn_修改管理员密码.Location = new System.Drawing.Point(556, 114);
+            this.btn_修改管理员密码.Location = new System.Drawing.Point(494, 95);
+            this.btn_修改管理员密码.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_修改管理员密码.Name = "btn_修改管理员密码";
-            this.btn_修改管理员密码.Size = new System.Drawing.Size(181, 34);
+            this.btn_修改管理员密码.Size = new System.Drawing.Size(161, 28);
             this.btn_修改管理员密码.TabIndex = 37;
             this.btn_修改管理员密码.Text = "修改超级管理员密码";
             this.btn_修改管理员密码.UseVisualStyleBackColor = true;
@@ -351,9 +391,10 @@
             // 
             // btn_重置用户
             // 
-            this.btn_重置用户.Location = new System.Drawing.Point(425, 114);
+            this.btn_重置用户.Location = new System.Drawing.Point(378, 95);
+            this.btn_重置用户.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_重置用户.Name = "btn_重置用户";
-            this.btn_重置用户.Size = new System.Drawing.Size(118, 34);
+            this.btn_重置用户.Size = new System.Drawing.Size(105, 28);
             this.btn_重置用户.TabIndex = 36;
             this.btn_重置用户.Text = "重  置";
             this.btn_重置用户.UseVisualStyleBackColor = true;
@@ -361,33 +402,36 @@
             // 
             // txt_用户姓名
             // 
-            this.txt_用户姓名.Location = new System.Drawing.Point(115, 69);
+            this.txt_用户姓名.Location = new System.Drawing.Point(102, 57);
+            this.txt_用户姓名.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txt_用户姓名.Name = "txt_用户姓名";
-            this.txt_用户姓名.Size = new System.Drawing.Size(196, 28);
+            this.txt_用户姓名.Size = new System.Drawing.Size(175, 25);
             this.txt_用户姓名.TabIndex = 35;
             // 
             // txt_用户密码
             // 
-            this.txt_用户密码.Location = new System.Drawing.Point(436, 21);
+            this.txt_用户密码.Location = new System.Drawing.Point(388, 17);
+            this.txt_用户密码.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txt_用户密码.Name = "txt_用户密码";
             this.txt_用户密码.PasswordChar = '*';
-            this.txt_用户密码.Size = new System.Drawing.Size(196, 28);
+            this.txt_用户密码.Size = new System.Drawing.Size(175, 25);
             this.txt_用户密码.TabIndex = 34;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(349, 26);
+            this.label5.Location = new System.Drawing.Point(310, 22);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(80, 18);
+            this.label5.Size = new System.Drawing.Size(67, 15);
             this.label5.TabIndex = 33;
             this.label5.Text = "用户密码";
             // 
             // btn_删除用户
             // 
-            this.btn_删除用户.Location = new System.Drawing.Point(287, 114);
+            this.btn_删除用户.Location = new System.Drawing.Point(255, 95);
+            this.btn_删除用户.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_删除用户.Name = "btn_删除用户";
-            this.btn_删除用户.Size = new System.Drawing.Size(118, 34);
+            this.btn_删除用户.Size = new System.Drawing.Size(105, 28);
             this.btn_删除用户.TabIndex = 32;
             this.btn_删除用户.Text = "删  除";
             this.btn_删除用户.UseVisualStyleBackColor = true;
@@ -395,9 +439,10 @@
             // 
             // btn_修改用户
             // 
-            this.btn_修改用户.Location = new System.Drawing.Point(150, 114);
+            this.btn_修改用户.Location = new System.Drawing.Point(133, 95);
+            this.btn_修改用户.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_修改用户.Name = "btn_修改用户";
-            this.btn_修改用户.Size = new System.Drawing.Size(118, 34);
+            this.btn_修改用户.Size = new System.Drawing.Size(105, 28);
             this.btn_修改用户.TabIndex = 31;
             this.btn_修改用户.Text = "修  改";
             this.btn_修改用户.UseVisualStyleBackColor = true;
@@ -405,9 +450,10 @@
             // 
             // btn_增加用户
             // 
-            this.btn_增加用户.Location = new System.Drawing.Point(15, 114);
+            this.btn_增加用户.Location = new System.Drawing.Point(13, 95);
+            this.btn_增加用户.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_增加用户.Name = "btn_增加用户";
-            this.btn_增加用户.Size = new System.Drawing.Size(118, 34);
+            this.btn_增加用户.Size = new System.Drawing.Size(105, 28);
             this.btn_增加用户.TabIndex = 30;
             this.btn_增加用户.Text = "增  加";
             this.btn_增加用户.UseVisualStyleBackColor = true;
@@ -416,35 +462,37 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(16, 73);
+            this.label4.Location = new System.Drawing.Point(14, 61);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(80, 18);
+            this.label4.Size = new System.Drawing.Size(67, 15);
             this.label4.TabIndex = 28;
             this.label4.Text = "用户姓名";
             // 
             // txt_用户名
             // 
-            this.txt_用户名.Location = new System.Drawing.Point(116, 21);
+            this.txt_用户名.Location = new System.Drawing.Point(103, 17);
+            this.txt_用户名.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txt_用户名.Name = "txt_用户名";
-            this.txt_用户名.Size = new System.Drawing.Size(196, 28);
+            this.txt_用户名.Size = new System.Drawing.Size(175, 25);
             this.txt_用户名.TabIndex = 27;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 26);
+            this.label2.Location = new System.Drawing.Point(14, 22);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(62, 18);
+            this.label2.Size = new System.Drawing.Size(52, 15);
             this.label2.TabIndex = 15;
             this.label2.Text = "用户名";
             // 
             // SystemManagerCtl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel1);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "SystemManagerCtl";
-            this.Size = new System.Drawing.Size(1534, 696);
+            this.Size = new System.Drawing.Size(1364, 580);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_汇率)).EndInit();
@@ -490,5 +538,7 @@
         private System.Windows.Forms.Button btn_修改管理员密码;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox cmb_角色;
+        private System.Windows.Forms.ComboBox comboBox_RateType;
+        private System.Windows.Forms.Label label8;
     }
 }

@@ -20,6 +20,8 @@ namespace 基金管理
 
         public Dictionary<string, string> m_usa_code_info_map;
 
+        public HashSet<string> m_beijing_code_set; // 存储所有北交所代码;
+
         private static volatile WindMain instance;
         private static object syncRoot = new Object();
 
@@ -50,6 +52,8 @@ namespace 基金管理
             InitWindApi();
 
             InitAmericanCodeMap();
+
+            InitBeijingCodeMap();
         }
 
         public void ConnectWind() {
@@ -126,7 +130,52 @@ namespace 基金管理
             } 
         }
 
+        private void InitBeijingCodeMap() {
+
+            m_beijing_code_set = new HashSet<string>();
+
+            if (Wind_Success) {
+                for (int j =0;j < 5; ++j) 
+                {
+                    string curr_date = DateTime.Now.ToString("yyyy-MM-dd");
+
+                    string req_str = "date=" + curr_date + ";sectorid=1000038551000000";
+
+                    WindData wd = m_WindAPI.wset("sectorconstituent", req_str);
+
+                    int code_len = wd.GetCodeLength();
+                    int field_len = wd.GetFieldLength();
+
+                    object[,] data = (object[,])wd.getDataByFunc("wset", false);
+                    
+                    for (int i = 0; i < code_len; ++i)
+                    {
+                        string full_code = (string)data[i, 1];
+
+                        string code_description =  (string)data[i, 2];
+
+                        string[] tmp_code_list = full_code.Split('.');
+
+                        string code = tmp_code_list[0].ToUpper();
+                        string suffix = tmp_code_list[1].ToUpper();
+
+                        if (!m_beijing_code_set.Contains(suffix))
+                        {
+                            m_beijing_code_set.Add(code);
+                        }
+                    }
+
+                    if (m_beijing_code_set.Count > 0) break;
+
+                    Thread.Sleep(500);
+                }
+            }            
+        }
+
         private void InitAmericanCodeMap() {
+            m_usa_code_map = new Dictionary<string, HashSet<string>>();
+            m_usa_code_info_map = new Dictionary<string, string>();
+
             if (Wind_Success) {
                 for (int j =0;j < 5; ++j) 
                 {
@@ -139,20 +188,7 @@ namespace 基金管理
                     int code_len = wd.GetCodeLength();
                     int field_len = wd.GetFieldLength();
 
-                    m_usa_code_map = new Dictionary<string, HashSet<string>>();
-                    m_usa_code_info_map = new Dictionary<string, string>();
-
                     object[,] data = (object[,])wd.getDataByFunc("wset", false);
-
-                    // for (int i1 = 0; i1 < code_len; ++i1)
-                    // {
-                    //     for (int i2 = 0; i2 < field_len; i2++)
-                    //     {
-                    //         Console.Write("{0}:{1} ", i2, data[i1, i2]);
-                    //     }
-                    //     Console.WriteLine();
-                    // }
-                    
 
                     for (int i = 0; i < code_len; ++i)
                     {
@@ -177,10 +213,6 @@ namespace 基金管理
                         }
                     }
 
-                    // foreach (var item in m_usa_code_info_map) {
-                    //     Console.WriteLine("{0}:{1} ", item.Key, item.Value);
-                    // }
-
                     if (m_usa_code_map.Count > 0 ||m_usa_code_info_map.Count >0) break;
 
                     Thread.Sleep(500);
@@ -191,9 +223,18 @@ namespace 基金管理
         
 
         public bool IsAmericanCode(string code) {
-            return m_usa_code_info_map.ContainsKey(code);
-
+            if(m_usa_code_info_map.Count > 0) {
+                return m_usa_code_info_map.ContainsKey(code);
+            }
+            return false;
         }
+
+        public bool IsBeijingCode(string code) {
+            if(m_beijing_code_set.Count > 0) {
+                return m_beijing_code_set.Contains(code);
+            }
+            return false;
+        }        
 
         public bool IsChineseCode(string code)
         {

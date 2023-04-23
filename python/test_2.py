@@ -40,6 +40,10 @@ def get_suffix_list(code_list):
             
     return rst
 
+def init_wind():
+    rst = w.start()
+    print(rst)    
+
 def get_usa_code():
     
     rst = w.start()
@@ -85,7 +89,16 @@ def get_usa_code():
     # print(data.Data[1])
     print("\n")    
 
+def get_beijing_code():
+    init_wind()
+    date = datetime.today()
+
+    usa_code = w.wset("sectorconstituent","date=2023-04-20;sectorid=1000045156000000")    
+    print("beijiaosuo: \n")
+    print(usa_code)        
+    
 if __name__ == '__main__':
     test_has_number()
     # demo1()
-    get_usa_code()
+    # get_usa_code()
+    get_beijing_code()

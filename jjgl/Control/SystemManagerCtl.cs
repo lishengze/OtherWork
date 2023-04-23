@@ -17,11 +17,14 @@ namespace 基金管理
         {
             InitializeComponent();
             InitData();
+            InitCombox();//建议使用此方法来初始化combobox，因为这样就可以在控件上使用动态
             this.Load += new EventHandler(ManagerCtl_Load);
         }
          
         public string m_edit_用户名 = string.Empty; 
         public string m_edit_汇率 = string.Empty;
+
+        public string m_rate_type = string.Empty;
 
         void ManagerCtl_Load(object sender, EventArgs e)
         {
@@ -34,6 +37,13 @@ namespace 基金管理
             Refresh_用户();
             Refresh_汇率();
             this.cmb_角色.SelectedItem = "管理员";
+            m_rate_type = "港股";
+        }
+
+        private void InitCombox() 
+        {
+            this.comboBox_RateType.Items.Add("港股");
+            this.comboBox_RateType.Items.Add("美股");
         }
 
         #region 用户
@@ -255,9 +265,22 @@ namespace 基金管理
             this.dataGridView_汇率.ClearSelection();
         }
 
+        private string getRateKey() 
+        {
+            string curr_date = this.datetimer_汇率_时间.Value.ToString("yyyy/MM/dd", System.Globalization.DateTimeFormatInfo.InvariantInfo);
+            string result = curr_date;
+
+            if ("美股" == m_rate_type) 
+            {
+                result = curr_date + "_USA";;
+            }
+            return result;
+        }
+
         private void btn_增加汇率_Click(object sender, EventArgs e)
         {
-            double 买入汇率 = 0; double 卖出汇率 = 0;
+            double 买入汇率 = 0; 
+            double 卖出汇率 = 0;
             double.TryParse(this.txt_买入汇率.Text.Trim(), out 买入汇率);
             double.TryParse(this.txt_卖出汇率.Text.Trim(), out 卖出汇率);
             if (买入汇率 <= 0 && 卖出汇率 <= 0)
@@ -266,7 +289,7 @@ namespace 基金管理
                 return;
             }
             Maticsoft.Model.绩效考核_汇率 model = new Maticsoft.Model.绩效考核_汇率();
-            model.时间 = this.datetimer_汇率_时间.Value.ToString("yyyy/MM/dd", System.Globalization.DateTimeFormatInfo.InvariantInfo);
+            model.时间 = getRateKey();
             model.买入汇率 = 买入汇率;
             model.卖出汇率 = 卖出汇率;
             Maticsoft.BLL.绩效考核_汇率 modelBLL = new Maticsoft.BLL.绩效考核_汇率();
@@ -277,13 +300,13 @@ namespace 基金管理
                     this.txt_买入汇率.Text = "";
                     this.txt_卖出汇率.Text = "";
                     this.Refresh_汇率();
-                    MessageBox.Show("汇率增加成功！", "系统提示");
+                    MessageBox.Show(m_rate_type + "汇率增加成功！", "系统提示");
                 }
                 else
-                    MessageBox.Show("汇率增加失败，数据库操作失败", "系统提示");
+                    MessageBox.Show(m_rate_type+ "汇率增加失败，数据库操作失败", "系统提示");
             }
             else
-                MessageBox.Show(string.Format("汇率增加失败！，已经存在当日汇率！"), "系统提示");
+                MessageBox.Show(m_rate_type + "汇率增加失败！已经存在当日汇率！", "系统提示");
         }
 
         private void btn_修改汇率_Click(object sender, EventArgs e)
@@ -301,7 +324,7 @@ namespace 基金管理
                 }
                 Maticsoft.BLL.绩效考核_汇率 modelBLL = new Maticsoft.BLL.绩效考核_汇率();
                 Maticsoft.Model.绩效考核_汇率 model = new Maticsoft.Model.绩效考核_汇率();
-                model.时间 = this.datetimer_汇率_时间.Value.ToString("yyyy/MM/dd", System.Globalization.DateTimeFormatInfo.InvariantInfo);
+                model.时间 = getRateKey();
                 model.买入汇率 = 买入汇率;
                 model.卖出汇率 = 卖出汇率;
                 if (!modelBLL.Exists(model.时间))
@@ -313,18 +336,18 @@ namespace 基金管理
                     {
                         DataGridViewRow row = collection[0];
 
-                        row.Cells["时间"].Value = this.datetimer_汇率_时间.Value.ToString("yyyy/MM/dd", System.Globalization.DateTimeFormatInfo.InvariantInfo);
+                        row.Cells["时间"].Value = model.时间;
                         row.Cells["买入汇率"].Value = this.txt_买入汇率.Text.Trim();
                         row.Cells["卖出汇率"].Value = this.txt_卖出汇率.Text.Trim();
 
                         this.txt_买入汇率.Text = "";
                         this.txt_卖出汇率.Text = "";
 
-                        MessageBox.Show("汇率修改成功！", "系统提示");
+                        MessageBox.Show(m_rate_type + "汇率修改成功！", "系统提示");
                     }
                     else
                     {
-                        MessageBox.Show("汇率修改失败，数据库操作失败！", "系统提示");
+                        MessageBox.Show(m_rate_type +"汇率修改失败，数据库操作失败！", "系统提示");
                     }
                 }
             }
@@ -393,6 +416,12 @@ namespace 基金管理
         }
         #endregion
 
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox combo = (ComboBox)sender;
+            m_rate_type = combo.SelectedItem.ToString(); 
+            LOG.Instance.Info("汇率类型: " + m_rate_type);
+        }
 
 
     }
